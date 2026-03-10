@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Listagem de Tarefas</title>
+</head>
+
+<body>
+    <ul class="nav nav-tabs justify-content-sm-center">
+        <li class="nav-item">
+            <a class="nav-link " href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dividas" >Cadastrar divida</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active"  aria-current="page" href="/listarDivida">Listar Divida</a>
+        </li>
+    </ul>
+
+
+    <h1 class="display-4 fw-bold text-body-emphasis fs-2 pt-2">Lista das dividas Cadastradas.</h1>
+    <form class="d-flex container" method="get" action="/list" >
+        <input class="form-control me-2" type="search" placeholder="Pesquisar tarefa" name="search">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
+    <table class="table container">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">valor</th>
+                <th scope="col">Data Vencimento</th>
+                <th scope="col">Data Compra</th>
+                <th scope="col">Status</th>
+                <th scope="col">#</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-th-each="divida : ${dividas}">
+                <td data-th-text="${divida.id}"></td>
+                <td data-th-text="${divida.valor}"></td>    
+                <td data-th-text="${divida.dataVencimento}"></td>
+                <td data-th-text="${divida.dataCompra}"></td>
+                <td data-th-text="${divida.status}"></td>
+                <th><a class="btn btn-secondary" role="button" href="#">Editar</a></th>
+                <th><a class="btn btn-danger" role="button" href="#">Excluir</a></th>
+            </tr>
+
+        </tbody>
+    </table>
+    <div class="container">
+        <a class="btn btn-primary" href="/dividas" role="button">Voltar ao Cadastro</a>
+    </div>
+</body>
+
+</html>
+</html>
