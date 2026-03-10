@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.gabriel.projeto_spring_jpa_v1.model.Divida;
 import com.gabriel.projeto_spring_jpa_v1.repository.DividaRepository;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -25,6 +25,14 @@ public class DividaController {
         repository.save(divida);     
         System.out.println("feito");
         return "redirect:/dividas";
+    }
+
+    @GetMapping("listarDivida")
+    public ModelAndView getLitardividas(){
+        ModelAndView mv = new ModelAndView("/listarDivida");
+        
+        mv.addObject("dividas", repository.findAll());
+        return mv;
     }
     
 }
