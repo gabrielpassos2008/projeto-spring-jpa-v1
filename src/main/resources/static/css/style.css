@@ -1,8 +1,266 @@
-h1{
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f5f6fa;
+    margin:0;
+}
+
+.labelPerfil{
+    background-color:white;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #999;
+    margin-top:5px;
+    
+}
+
+/* container principal */
+
+.CardLogin{
+    width:500px;
+    background:#e8e8e8;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.384);
+    margin:150px auto;
+}
+
+.container{
+    width:60%;
+    margin:auto;
+    align-items: center;
+    margin-block:40px;
+    
+    padding:30px;
+    border-radius:15px;
+    
+    background:white;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.384);
+}
+
+/* menu */
+
+.menu{
+    display:flex;
+    justify-content:center;
+    gap:2%;
+    margin-bottom:4%;
+}
+
+.menu a{
+    padding:10px 25px;
+    border:none;
+    text-decoration: none;
+    border-radius:20px;
+    background:#d9d9d9;
+    color: black;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.24);
+}
+
+.menu .ativo{
+    background:#f3702b;
+    color:white;
+}
+
+/* layout principal */
+
+.conteudo{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* resumo */
+
+.resumo{
+    width:300px;
+    background-color: #e8e8e8;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.384);
+
+
+}
+
+
+
+/* cards */
+
+.card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#f4f4f4;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+    margin-inline: 10px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.116);
+}
+
+.card i{
+    font-size:35px;
+}
+
+.verde{
+    color:#4CAF50;
+}
+
+.azul{
+    color:#3f6ef5;
+}
+
+/* formulario */
+
+.formDividido{
+    width:500px;
+    background:#e8e8e8;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.384);
+    
+}
+
+.formCentralizado{
+    width:500px;
+    background:#e8e8e8;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0, 0, 0, 0.384);
+    margin: auto;
+}
+.formCentralizado .btn{
+    margin-top: 10px;
+}
+
+.tituloForm{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+label{
+    margin-top:10px;
+}
+
+input{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #999;
+    margin-top:5px;
+}
+
+.button{
+    margin-top:25px;
+    padding:12px;
+    background:#f3702b;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.button:hover{
+    background:#e25c19;
+}
+
+/* área da pesquisa */
+
+.area-pesquisa{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* topo da pesquisa */
+
+.topo-pesquisa{
+    display:flex;
+    gap:10px;
+}
+
+.input-pesquisa{
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #aaa;
+    background:#e8e8e8;
+}
+
+/* botões */
+
+.btn,
+.btn-pesquisar{
+    background:#f26a2e;
+    border:none;
+    text-decoration: none;
+    padding:10px 16px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
     text-align: center;
 }
-a{
-    display: flex;
-    align-items: center;
- 
+
+.btn:hover,
+.btn-pesquisar:hover{
+    background:#e55d23;
+}
+
+/* lista de clientes */
+
+.lista-clientes{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    
+}
+
+/* card do cliente */
+
+.card-cliente{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    background:#e8e8e8;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.2);
+
+    transition:0.2s;
+}
+
+.card-cliente:hover{
+    transform:scale(1.02);
+}
+
+/* informações do cliente */
+
+.info-cliente{
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+
+.nome{
+    font-size:18px;
+}
+
+.valor{
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* ações */
+
+.acoes{
+    display:flex;
+    gap:15px;
 }

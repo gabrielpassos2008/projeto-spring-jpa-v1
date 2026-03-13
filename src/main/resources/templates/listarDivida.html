@@ -33,22 +33,14 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">valor</th>
-                <th scope="col">Data Vencimento</th>
                 <th scope="col">Data Compra</th>
-                <th scope="col">Status</th>
-                <th scope="col">#</th>
-                <th scope="col">#</th>
             </tr>
         </thead>
         <tbody>
             <tr data-th-each="divida : ${dividas}">
                 <td data-th-text="${divida.id}"></td>
                 <td data-th-text="${divida.valor}"></td>    
-                <td data-th-text="${divida.dataVencimento}"></td>
                 <td data-th-text="${divida.dataCompra}"></td>
-                <td data-th-text="${divida.status}"></td>
-                <th><a class="btn btn-secondary" role="button" href="#">Editar</a></th>
-                <th><a class="btn btn-danger" role="button" href="#">Excluir</a></th>
             </tr>
 
         </tbody>

@@ -26,24 +26,10 @@
     <h1 class="display-4 fw-bold text-body-emphasis fs-2 pt-2">Cadastre a divida</h1>
     <form class="container" method="post" action="/dividas" >
         <div class="mb-3">
-            <label for="inputDataV" class="form-label">Data Vencimento</label>
-            <input type="text" class="form-control" id="inputDataV" name="dataVencimento">
-        </div>
-
-        <div class="mb-3">
-            <label for="inputDataC" class="form-label">Data Compra</label>
-            <input type="text" class="form-control" id="inputDataC" name="dataCompra">
-        </div>
-        <div class="mb-3">
             <label for="inputValor" class="form-label">Valor</label>
             <input type="text" class="form-control" id="inputValor" name="valor">
         </div>
-        <div class="mb-3">
-            <select class="form-select" aria-label="Default select example" name="status">
-                <option value="pendente">Pendente</option>
-                <option value="paga">Paga</option>
-            </select>
-        </div>
+
 
         <button type="submit" class="btn btn-primary">Cadastrar</button>
 
