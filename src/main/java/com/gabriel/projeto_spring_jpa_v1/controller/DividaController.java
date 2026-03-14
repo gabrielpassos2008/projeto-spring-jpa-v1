@@ -8,14 +8,21 @@ import com.gabriel.projeto_spring_jpa_v1.repository.DividaRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class DividaController {
     private DividaRepository repository;
 
-    public DividaController(DividaRepository repository){
-        this.repository = repository;
+    public DividaController(DividaRepository dividaRepository){
+        this.repository = dividaRepository;
     } 
+    
+    
+    @GetMapping("/pesquisar")
+    public String getPequisar() {
+        return "operador/pesquisar-usuario";
+    }
+    
+    
     @GetMapping("/dividas")
     public String getSalvarDivida(){
         return "salvarDivida";
