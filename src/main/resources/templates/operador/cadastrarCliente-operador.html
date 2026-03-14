@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <a  >Cadastrar a divida</a>
+            <a class="ativo" >Cadastrar cliente</a>
+            <a  >Perfil</a>
+        </div>
+
+        <div class="formCentralizado">
+
+            <h2 class="tituloForm">Cadastrar cliente</h2>
+
+            <form>
+
+                <label>Nome:</label>
+                <input type="text">
+
+                <label>Apelido:</label>
+                <input type="text">
+
+                <label>Telefone:</label>
+                <input type="text">
+
+                <label>Senha:</label>
+                <input type="password">
+                <button class="button" type="submit">Cadastrar</button>
+
+            </form>
+
+        </div>
+</div>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>Document</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -12,12 +12,12 @@
 
         <h2 class="tituloForm">Faça seu login:</h2>
 
-        <form>
+        <form method="post" action="/">
             <label>Email:</label>
-            <input type="text">
+            <input type="text" name="email">
 
             <label>Senha:</label>
-            <input type="text">
+            <input type="text" name="senha">
 
             <button class="button" type="submit">Logar</button>
 
