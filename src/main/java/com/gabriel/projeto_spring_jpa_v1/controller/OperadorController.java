@@ -38,11 +38,53 @@ public class OperadorController {
     }
 
     @GetMapping("/adm/pesquisar-usuario")
-    public String getpesquisarUsuario(HttpSession session) {
+    public String getPesquisarUsuario(HttpSession session) {
         if(session.getAttribute("usuario") == null){
             return "redirect:/adm";
         }
         return "operador/pesquisar-usuario";
     }
+
+    @GetMapping("/adm/cadastrar-cliente")
+    public String getCadastrarCliente(HttpSession session) {
+        if(session.getAttribute("usuario")== null){
+            return "redirect:/adm";
+        }
+        return "operador/cadastrarCliente-operador";
+    }
+    
+    @GetMapping("/adm/abater-divida")
+    public String getAbaterDivida(HttpSession session) {
+        if (session.getAttribute("usuario")== null) {
+            return "redirect:/adm";
+        }
+        return "operador/abater-divida-operador";
+    }
+    
+
+    @GetMapping("/adm/salvar-divida")
+    public String getSalvarDivida(HttpSession session) {
+        if (session.getAttribute("usuario")== null) {
+            return "redirect:/adm";
+        }
+        return "operador/salvarDivida-operador";
+    }
+
+    @GetMapping("/adm/perfil")
+    public String getPerfil(HttpSession session) {
+        if (session.getAttribute("usuario")== null) {
+            return "redirect:/adm";
+        }
+        return "operador/perfil-operador";
+    }
+    
+    @GetMapping("/adm/perfil/editar")
+    public String getEditarPerfil(HttpSession session) {
+        if (session.getAttribute("usuario")== null) {
+            return "redirect:/adm";
+        }
+        return "operador/editar-Perfil-operador";
+    }
+    
     
 }
