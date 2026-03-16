@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="CardLogin">
+
+        <h2 class="tituloForm">Faça seu login:</h2>
+
+        <form method="post" action="/adm">
+            <label>Email:</label>
+            <input type="text" name="email">
+
+            <label>Senha:</label>
+            <input type="text" name="senha">
+
+            <button class="button" type="submit">Logar</button>
+
+        </form>
+
+    </div>
+</body>
+</html>

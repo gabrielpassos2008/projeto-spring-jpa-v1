@@ -20,16 +20,16 @@ public class ClienteController {
 
     @GetMapping("/")
     public String getLogin() {
-        return "login";
+        return "login-cliente";
     }
     
     @PostMapping("/")
     public String postLogin(Cliente cliente) {
-        Optional<Cliente> umCliente = repository.findByEmail(cliente.getEmail());
-        if(umCliente.isPresent()) {
+        Optional<Cliente> clienteEncomtrado = repository.findByEmailAndSenha(cliente.getEmail(), cliente.getSenha());
+        if(clienteEncomtrado.isPresent() ) {
             return "operador/pesquisar-usuario";
         } else {
-            return "login";
+            return "login-cliente";
         }
         
     }
