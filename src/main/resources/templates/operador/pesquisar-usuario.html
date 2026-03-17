@@ -15,9 +15,9 @@
 
     <!-- MENU -->
     <div class="menu">
-        <a  href="/adm/pesquisar-usuario" class="ativo" >Cadastrar a divida</a>
-        <a  href="/adm/cadastrar-cliente">Cadastrar cliente</a>
-        <a  href="/adm/perfil">Perfil</a>
+        <a  th:href="@{/adm/pesquisar-usuario}" class="ativo" >Cadastrar a divida</a>
+        <a  th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
+        <a  th:href="@{/adm/perfil}">Perfil</a>
     </div>
     <div class="conteudo">
 
@@ -69,8 +69,8 @@
                     </div>
                 
                     <div class="acoes">
-                        <a href="/adm/abater-divida" class="btn">Abater dívida</a>
-                        <a href="/adm/salvar-divida" class="btn">Adicionar débito</a>
+                        <a th:href="@{/adm/abater-divida}" class="btn">Abater dívida</a>
+                        <a th:href="@{/adm/salvar-divida}" class="btn">Adicionar débito</a>
                     </div>
                 
                 </div>

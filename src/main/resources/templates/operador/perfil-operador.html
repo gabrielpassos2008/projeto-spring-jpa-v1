@@ -10,9 +10,9 @@
 
     <div class="container">
         <div class="menu">
-            <a  href="/adm/pesquisar-usuario">Cadastrar a divida</a>
-            <a  href="/adm/cadastrar-cliente">Cadastrar cliente</a>
-            <a  href="/adm/perfil" class="ativo">Perfil</a>
+            <a  th:href="@{/adm/pesquisar-usuario}">Cadastrar a divida</a>
+            <a  th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
+            <a  th:href="@{/adm/perfil}" class="ativo">Perfil</a>
         </div>
 
         <div class="formCentralizado">
@@ -20,7 +20,7 @@
             <h2 class="tituloForm">Perfil</h2>
 
             <form>
-                
+    
                 <label>Nome:</label>
                 <p class="labelPerfil">sdsds</p>
 
@@ -33,9 +33,9 @@
                 <label>Senha:</label>
                 <p class="labelPerfil">dsds</p>
 
-                <a href="/adm/perfil/editar" class="btn">Editar</a>
+                <a th:href="@{/adm/perfil/editar}" class="btn">Editar</a>
 
-                <a href="/adm/sair" class="btn">Sair</a>
+                <a th:href="@{/adm/sair}" class="btn">Sair</a>
 
             </form>
 
