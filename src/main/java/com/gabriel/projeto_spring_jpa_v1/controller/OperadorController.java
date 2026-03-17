@@ -8,6 +8,8 @@ import com.gabriel.projeto_spring_jpa_v1.model.Operador;
 import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -81,6 +83,12 @@ public class OperadorController {
             return "redirect:/adm";
         }
         return "operador/editar-Perfil-operador";
+    }
+    
+    @GetMapping("/adm/sair")
+    public String getSair(HttpSession session) {
+        session.invalidate();
+        return "redirect:/adm";
     }
     
     
