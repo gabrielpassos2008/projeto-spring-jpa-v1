@@ -1,7 +1,5 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +8,6 @@ import com.gabriel.projeto_spring_jpa_v1.model.Operador;
 import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
