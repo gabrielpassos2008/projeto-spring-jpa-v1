@@ -1,25 +1,29 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gabriel.projeto_spring_jpa_v1.model.Operador;
+import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
 import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import lombok.var;
 
 
 @Controller
 public class OperadorController {
     
-    private OPeradorService service;
+    @Autowired
+    private OPeradorService operadorService;
 
-    public OperadorController(OPeradorService OPeradorService){
-        this.service = OPeradorService;
-    } 
+    @Autowired
+    private ClienteService clienteService;
+
 
     @GetMapping("/adm")
     public String getLoginAdm() {
@@ -28,7 +32,7 @@ public class OperadorController {
     
     @PostMapping("/adm")
     public String postLoginAdm(Operador operador,HttpSession session) {
-        if (service.validarLogin(operador.getEmail(), operador.getSenha())) {
+        if (operadorService.validarLogin(operador.getEmail(), operador.getSenha())) {
             session.setAttribute("usuario", operador);
             return "redirect:/adm/pesquisar-usuario";
         }else{
@@ -37,11 +41,27 @@ public class OperadorController {
     }
 
     @GetMapping("/adm/pesquisar-usuario")
-    public String getPesquisarUsuario(HttpSession session) {
+    public ModelAndView getPesquisarUsuario(HttpSession session,@RequestParam(required = false) String search) {
+
         if(session.getAttribute("usuario") == null){
-            return "redirect:/adm";
+            return new ModelAndView("redirect:/adm");
         }
-        return "operador/pesquisar-usuario";
+        ModelAndView mv = new ModelAndView("operador/pesquisar-usuario");
+        if (search == null || search.isBlank()) {
+            mv.addObject("mensagem","Digite um nome para pesquisar.");
+            return mv;
+        }
+
+        var todosClientes = clienteService.retornarClienteNome(search);
+        
+        if (todosClientes.isEmpty()) {
+            mv.addObject("mensagem","Nenhum cliente encontrado.");
+            System.out.println("nao achou");
+        }else{
+            System.out.println("deu certo");
+            mv.addObject("clientes",todosClientes);
+        }
+        return mv;
     }
 
     @GetMapping("/adm/cadastrar-cliente")
