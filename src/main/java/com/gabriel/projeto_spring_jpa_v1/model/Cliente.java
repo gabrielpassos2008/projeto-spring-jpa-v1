@@ -21,7 +21,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String Nome;
+    private String nome;
     private String telefone;
     private String email;
     private String senha;
