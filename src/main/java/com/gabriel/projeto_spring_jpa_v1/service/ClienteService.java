@@ -1,5 +1,6 @@
 package com.gabriel.projeto_spring_jpa_v1.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,8 @@ public class ClienteService {
             return false;
         }
     }
+    public List<Cliente> retornarClienteNome(String nome){
+        return repository.findByNomeContainingIgnoreCase(nome);
+    } 
+
 }
