@@ -54,17 +54,14 @@
 
 
         <!-- FORMULARIO -->
-        <div class="formDividido">
+        <div class="formDividido" >
 
-            <h2 class="tituloForm">Abater uma divida para: roberto</h2>
+            <h2 class="tituloForm">Abater uma divida para: <span th:text="${cliente.nome}"></span></h2>
 
-            <form>
-
-
+            <form method="post" th:action="@{'/adm/abater-divida/'+${cliente.id}}">
                 <label>Valor:</label>
-                <input type="number">
+                <input type="number" name="valor">
                 <button class="button" type="submit">Salvar</button>
-
             </form>
 
         </div>

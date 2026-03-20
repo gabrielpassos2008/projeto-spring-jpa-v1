@@ -63,6 +63,7 @@
                 <div th:if="${mensagem}" >
                     <p th:text="${mensagem}" ></p>
                 </div>
+
                 <div class="card-cliente" th:each="cliente : ${clientes}">
                     <div class="info-cliente">
                         <span class="nome" th:text="${cliente.nome}"></span>
@@ -70,10 +71,11 @@
                     </div>
                 
                     <div class="acoes">
-                        <a th:href="@{/adm/abater-divida}" class="btn">Abater dívida</a>
-                        <a th:href="@{/adm/salvar-divida}" class="btn">Adicionar débito</a>
+                        <a th:href="@{'/adm/abater-divida/'+${cliente.id}}" class="btn">Abater dívida</a>
+                        <a th:href="@{'/adm/salvar-divida/'+${cliente.id}}" class="btn">Adicionar débito</a>
                     </div>
                 </div>
+                
             </div>
         </div>
 
