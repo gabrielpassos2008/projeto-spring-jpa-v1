@@ -23,10 +23,7 @@ public class Divida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @CreatedDate
-    @Column(name = "data_compra", nullable = false, updatable = false)    
-    private LocalDateTime dataCompra;
+
 
     private int valor;
     private String status;
@@ -35,7 +32,6 @@ public class Divida {
     private Cliente cliente;
 
     public Divida( LocalDateTime dataCompra, int valor,String status){
-        this.dataCompra = dataCompra;
         this.valor = valor;
     }
 }
