@@ -1,18 +1,24 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gabriel.projeto_spring_jpa_v1.model.Operador;
 import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
+import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
 import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.var;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -23,6 +29,9 @@ public class OperadorController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private DividaService dividaService;
 
 
     @GetMapping("/adm")
@@ -47,6 +56,11 @@ public class OperadorController {
             return new ModelAndView("redirect:/adm");
         }
         ModelAndView mv = new ModelAndView("operador/pesquisar-usuario");
+
+        // Verifica se o campo de busca está vazio ou não foi informado
+        // search == null -> significa que não foi enviado nenhum valor
+        // search.isBlank() -> verifica se está vazio ou só com espaços ("   ")
+        // || -> OU (se qualquer uma das condições for verdadeira, entra no if) 
         if (search == null || search.isBlank()) {
             mv.addObject("mensagem","Digite um nome para pesquisar.");
             return mv;
@@ -54,11 +68,11 @@ public class OperadorController {
 
         var todosClientes = clienteService.retornarClienteNome(search);
         
+        // Verifica se a lista "todosClientes" está vazia (sem nenhum cliente dentro)
+        // isEmpty() -> retorna true se a lista não tiver elementos
         if (todosClientes.isEmpty()) {
             mv.addObject("mensagem","Nenhum cliente encontrado.");
-            System.out.println("nao achou");
         }else{
-            System.out.println("deu certo");
             mv.addObject("clientes",todosClientes);
         }
         return mv;
@@ -72,16 +86,37 @@ public class OperadorController {
         return "operador/cadastrarCliente-operador";
     }
     
-    @GetMapping("/adm/abater-divida")
-    public String getAbaterDivida(HttpSession session) {
+    @GetMapping("/adm/abater-divida/{id}")
+    public ModelAndView getAbaterDivida(HttpSession session, @PathVariable("id")Long id) {
         if (session.getAttribute("usuario")== null) {
-            return "redirect:/adm";
+            return new ModelAndView("redirect:/adm");
         }
-        return "operador/abater-divida-operador";
+        ModelAndView mv = new ModelAndView("operador/abater-divida-operador");
+        var clientePorId = clienteService.retornaClientePorId(id);
+        if (!clientePorId.isPresent()) {
+            mv.setViewName("operador/pesquisar-usuario");
+            return mv;
+        }
+        System.out.println("entrou");
+        mv.addObject("cliente", clientePorId.get());
+        return mv;
+    }
+
+    @PostMapping("/adm/abater-divida/{id}")
+    public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,@RequestParam("valor") int valor) {
+        if(session.getAttribute("usuario") == null){
+            return new ModelAndView("redirect:/adm");
+        }
+        
+        boolean sucesso = dividaService.abaterDivida(id, valor);
+        if (!sucesso) {
+            return new ModelAndView("redirect:/adm/pesquisar-usuario");
+        }
+        return new ModelAndView("redirect:/adm/pesquisar-usuario");
     }
     
 
-    @GetMapping("/adm/salvar-divida")
+    @GetMapping("/adm/salvar-divida/{id}")
     public String getSalvarDivida(HttpSession session) {
         if (session.getAttribute("usuario")== null) {
             return "redirect:/adm";
