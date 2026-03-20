@@ -25,4 +25,8 @@ public class ClienteService {
         return repository.findByNomeContainingIgnoreCase(nome);
     } 
 
+    public Optional<Cliente> retornaClientePorId(Long id){
+        return repository.findById(id);
+    }
+
 }
