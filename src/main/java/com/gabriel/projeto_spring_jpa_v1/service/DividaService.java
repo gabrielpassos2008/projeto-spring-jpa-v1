@@ -36,6 +36,10 @@ public class DividaService {
         return true;
     }
 
+    public Integer retornarTotalDivida(Long clienteid){
+        return dividaRepository.somarDividasPorCliente(clienteid);
+    }
+
     public boolean validarAbatimento(int valor, Long clienteid){
         Integer total = dividaRepository.somarDividasPorCliente(clienteid);
         return total != null && valor <= total;

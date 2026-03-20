@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,10 @@ public class Cliente {
     private String telefone;
     private String email;
     private String senha;
+
+    @Transient
+    private Integer totalDivida;
+    
     @ManyToOne
     @JoinColumn(name = "operador_id")
     private Operador operador;

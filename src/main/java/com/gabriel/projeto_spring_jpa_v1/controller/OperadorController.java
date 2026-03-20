@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
 import com.gabriel.projeto_spring_jpa_v1.model.Operador;
 import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
 import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
@@ -65,6 +66,10 @@ public class OperadorController {
         }
 
         var todosClientes = clienteService.retornarClienteNome(search);
+        for (Cliente cliente : todosClientes) {
+            Integer total = dividaService.retornarTotalDivida(cliente.getId());
+            cliente.setTotalDivida(total);
+        }
         
         // Verifica se a lista "todosClientes" está vazia (sem nenhum cliente dentro)
         // isEmpty() -> retorna true se a lista não tiver elementos
