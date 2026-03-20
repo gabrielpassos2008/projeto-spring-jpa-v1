@@ -22,9 +22,10 @@ public class DividaService {
         if (consultaCliente.isEmpty()) {
             return false;
         }
-        if (valor <= 0) {
+        if (valor <= 0 || !validarAbatimento(valor, clienteId)) {
             return false;
         }
+
         Cliente cliente = consultaCliente.get();
         Divida divida = new Divida();
         divida.setValor(-valor);
@@ -33,5 +34,10 @@ public class DividaService {
 
         dividaRepository.save(divida);
         return true;
+    }
+
+    public boolean validarAbatimento(int valor, Long clienteid){
+        Integer total = dividaRepository.somarDividasPorCliente(clienteid);
+        return total != null && valor <= total;
     }
 }
