@@ -24,7 +24,6 @@ public class Divida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private Integer valor;
     private String status;
 

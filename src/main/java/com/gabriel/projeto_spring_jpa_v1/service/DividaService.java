@@ -35,6 +35,26 @@ public class DividaService {
         dividaRepository.save(divida);
         return true;
     }
+    
+    public boolean salvarDivida(Long clienteId , Integer valor){
+        var consultaCliente = clienteRepository.findById(clienteId);
+        if (consultaCliente.isEmpty()) {
+            return false;
+        }
+
+        if (valor == null || valor <= 0) {
+            return false;
+        }
+
+        Cliente cliente = consultaCliente.get();
+        Divida divida = new Divida();
+        divida.setCliente(cliente);
+        divida.setValor(valor);
+        divida.setStatus("DIVIDA");
+        dividaRepository.save(divida);
+        return true;
+    }
+
 
     public Integer retornarTotalDivida(Long clienteid){
         return dividaRepository.somarDividasPorCliente(clienteid);

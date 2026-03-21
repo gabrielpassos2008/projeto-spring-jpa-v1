@@ -17,6 +17,8 @@ import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.var;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -105,7 +107,7 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/abater-divida/{id}")
-    public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,@RequestParam("valor") int valor) {
+    public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,@RequestParam("valor") Integer valor) {
         if(session.getAttribute("usuario") == null){
             return new ModelAndView("redirect:/adm");
         }
@@ -118,14 +120,26 @@ public class OperadorController {
         return new ModelAndView("redirect:/adm/pesquisar-usuario");
     }
     
-
     @GetMapping("/adm/salvar-divida/{id}")
-    public String getSalvarDivida(HttpSession session) {
+    public ModelAndView getSalvarDivida(HttpSession session, @PathVariable("id") Long id) {
         if (session.getAttribute("usuario")== null) {
-            return "redirect:/adm";
+            return new ModelAndView("redirect:/adm") ;
         }
-        return "operador/salvarDivida-operador";
+        var clientePorId = clienteService.retornaClientePorId(id);
+        ModelAndView mv = new ModelAndView("operador/salvarDivida-operador");
+        mv.addObject("cliente", clientePorId.get());
+        return mv;
     }
+
+    @PostMapping("/adm/salvar-divida/{id}")
+    public ModelAndView postSalvarDivida(HttpSession session,@PathVariable("id") Long id, @RequestParam("valor") Integer valor) {
+        if (session.getAttribute("usuario")== null) {
+            return new ModelAndView("redirect:/adm") ;
+        }
+        dividaService.salvarDivida(id,valor);
+        return new ModelAndView("redirect:/adm/pesquisar-usuario");
+    }
+    
 
     @GetMapping("/adm/perfil")
     public String getPerfil(HttpSession session) {

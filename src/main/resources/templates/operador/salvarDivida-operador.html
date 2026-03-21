@@ -57,17 +57,13 @@
         <!-- FORMULARIO -->
         <div class="formDividido">
 
-            <h2 class="tituloForm">Registre uma nova dívida para: roberto</h2>
+            <h2 class="tituloForm">Registre uma nova dívida para: <span th:text="${cliente.nome}" ></span></h2>
 
-            <form>
-
-                <input type="hidden">
+            <form method="post" th:action="@{'/adm/salvar-divida/'+${cliente.id}}">
 
                 <label>Valor:</label>
-                <input type="text">
+                <input type="text" name="valor">
 
-                <label>Data Compra:</label>
-                <input type="date">
                 <button class="button" type="submit">Salvar</button>
 
             </form>
