@@ -17,7 +17,7 @@ import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.var;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
