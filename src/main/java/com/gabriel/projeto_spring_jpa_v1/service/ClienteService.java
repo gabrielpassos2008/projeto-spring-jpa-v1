@@ -29,4 +29,13 @@ public class ClienteService {
         return repository.findById(id);
     }
 
+    public boolean cadastrarCLiente(Cliente cliente){  
+        try {
+            repository.save(cliente);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

@@ -23,6 +23,7 @@ public class Cliente {
     private Long id;
 
     private String nome;
+    private String apelido;
     private String telefone;
     private String email;
     private String senha;
