@@ -18,10 +18,6 @@ import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 import jakarta.servlet.http.HttpSession;
 import lombok.var;
 
-
-
-
-
 @Controller
 public class OperadorController {
     
@@ -42,13 +38,44 @@ public class OperadorController {
     
     @PostMapping("/adm")
     public String postLoginAdm(Operador operador,HttpSession session) {
-        if (operadorService.validarLogin(operador.getEmail(), operador.getSenha())) {
-            session.setAttribute("usuario", operador);
+        Operador operadorBanco = operadorService.validarLogin(operador.getEmail(), operador.getSenha());
+
+        if (operadorBanco != null) {
+            session.setAttribute("usuario", operadorBanco);
             return "redirect:/adm/pesquisar-usuario";
         }else{
             return "operador/login-operador";
         }
     }
+
+    @GetMapping("/adm/cadastrar-cliente")
+    public String getCadastrarCliente(HttpSession session, Cliente cliente) {
+        if(session.getAttribute("usuario")== null){
+            return "redirect:/adm";
+        }
+        return "operador/cadastrarCliente-operador";
+    }
+
+    @PostMapping("/adm/cadastrar-cliente")
+    public String postCadastrarCliente(HttpSession session, Cliente cliente) {
+        if(session.getAttribute("usuario")== null){
+            return "redirect:/adm";
+        }
+        Operador operadorSession = (Operador) session.getAttribute("usuario");
+        Operador operador = operadorService.operadorPorId(operadorSession.getId()).orElse(null);
+
+        if (operador == null) {
+            return "redirect:/adm";
+        }
+        cliente.setOperador(operador);
+
+        if (clienteService.cadastrarCLiente(cliente)) {
+            return "redirect:/adm/pesquisar-usuario";
+        };
+            return "redirect:/adm/cadastrar-cliente";
+
+    }
+
 
     @GetMapping("/adm/pesquisar-usuario")
     public ModelAndView getPesquisarUsuario(HttpSession session,@RequestParam(required = false) String search) {
@@ -83,14 +110,6 @@ public class OperadorController {
         return mv;
     }
 
-    @GetMapping("/adm/cadastrar-cliente")
-    public String getCadastrarCliente(HttpSession session) {
-        if(session.getAttribute("usuario")== null){
-            return "redirect:/adm";
-        }
-        return "operador/cadastrarCliente-operador";
-    }
-    
     @GetMapping("/adm/abater-divida/{id}")
     public ModelAndView getAbaterDivida(HttpSession session, @PathVariable("id")Long id) {
         if (session.getAttribute("usuario")== null) {
