@@ -15,14 +15,11 @@ public class OPeradorService {
     @Autowired
     private OperadorRepository repository;
 
-    public boolean validarLogin(String email,String senha){
-        Optional<Operador> operadorEncomtrado = repository.findByEmailAndSenha(email, senha);
-        if(operadorEncomtrado.isPresent() ) {
-            return true;
-        } else {
-            return false;
-        }
+    public Operador validarLogin(String email,String senha){
+        return repository.findByEmailAndSenha(email, senha).orElse(null);
     }
 
-
+    public Optional<Operador> operadorPorId(Long id){
+        return repository.findById(id);
+    }
 }
