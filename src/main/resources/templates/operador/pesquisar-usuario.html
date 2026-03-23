@@ -1,88 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Caderninho</title>
-<link th:href="@{/css/style.css}" rel="stylesheet" />
 
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Caderninho</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- MENU -->
-    <div class="menu">
-        <a  th:href="@{/adm/pesquisar-usuario}" class="ativo" >Cadastrar a divida</a>
-        <a  th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
-        <a  th:href="@{/adm/perfil}">Perfil</a>
-    </div>
-    <div class="conteudo">
+        <!-- MENU -->
+        <div class="menu">
+            <a th:href="@{/adm/pesquisar-usuario}" class="ativo">Cadastrar a divida</a>
+            <a th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
+            <a th:href="@{/adm/perfil}">Perfil</a>
+        </div>
+        <div class="conteudo">
 
-        <!-- LADO ESQUERDO -->
-        <div class="resumo">
+            <!-- LADO ESQUERDO -->
+            <div class="resumo">
 
-            <h2 class="tituloForm">Resumo divida:</h2>
+                <h2 class="tituloForm">Resumo divida:</h2>
 
-            <div class="card">
-                <i class="bi bi-cash-stack"></i>
-                <div>
-                    <p>Total em dívidas</p>
-                    <h3>R$ 1200,00</h3>
+                <div class="card">
+                    <i class="bi bi-cash-stack"></i>
+                    <div>
+                        <p>Total em dívidas</p>
+                        <h3>R$ 1200,00</h3>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <i class="bi bi-check-circle verde"></i>
+                    <div>
+                        <p>Total pago no mês</p>
+                        <h3>R$ 3.200,00</h3>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <i class="bi bi-people azul"></i>
+                    <div>
+                        <p>Clientes devendo</p>
+                        <h3>23 clientes</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="area-pesquisa">
+                <form method="get" action="/adm/pesquisar-usuario">
+                    <div class="topo-pesquisa">
+                        <input name="search" type="text" placeholder="Pesquisar cliente..." class="input-pesquisa">
+                        <button type="submit" class="btn-pesquisar">Pesquisar</button>
+                    </div>
+                </form>
+                <div class="lista-clientes">
+                    <div th:if="${mensagem}">
+                        <p th:text="${mensagem}"></p>
+                    </div>
+
+                        <div class="card-cliente" th:each="cliente : ${clientes}">
+                            <div class="info-cliente">
+                                <span class="nome" th:text="${cliente.nome}"></span>
+                                <span class="valor">R$ <span class="valor"
+                                        th:text="${cliente.totalDivida}"></span></span>
+                            </div>
+
+                            <div class="acoes">
+                                <a th:href="@{'/adm/abater-divida/'+${cliente.id}}" class="btn">Abater dívida</a>
+                                <a th:href="@{'/adm/salvar-divida/'+${cliente.id}}" class="btn">Adicionar débito</a>
+                                <a href="" class="btn"><i class="bi bi-clock-history icone-his"></i></a>
+                            </div>
+                        </div>
                 </div>
             </div>
 
-            <div class="card">
-                <i class="bi bi-check-circle verde"></i>
-                <div>
-                    <p>Total pago no mês</p>
-                    <h3>R$ 3.200,00</h3>
-                </div>
-            </div>
-
-            <div class="card">
-                <i class="bi bi-people azul"></i>
-                <div>
-                    <p>Clientes devendo</p>
-                    <h3>23 clientes</h3>
-                </div>
-            </div>
 
         </div>
 
-        <div class="area-pesquisa">
-            <form method="get" action="/adm/pesquisar-usuario">
-                <div class="topo-pesquisa" >
-                    <input name="search" type="text" placeholder="Pesquisar cliente..." class="input-pesquisa">
-                    <button type="submit" class="btn-pesquisar" >Pesquisar</button>
-                </div>
-            </form>
-            <div class="lista-clientes">
-                <div th:if="${mensagem}" >
-                    <p th:text="${mensagem}" ></p>
-                </div>
-
-                <div class="card-cliente" th:each="cliente : ${clientes}">
-                    <div class="info-cliente">
-                        <span class="nome" th:text="${cliente.nome}"></span>
-                        <span class="valor">R$ <span class="valor" th:text="${cliente.totalDivida}"></span></span>
-                    </div>
-                
-                    <div class="acoes">
-                        <a th:href="@{'/adm/abater-divida/'+${cliente.id}}" class="btn">Abater dívida</a>
-                        <a th:href="@{'/adm/salvar-divida/'+${cliente.id}}" class="btn">Adicionar débito</a>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        
     </div>
-
-</div>
 
 </body>
+
 </html>

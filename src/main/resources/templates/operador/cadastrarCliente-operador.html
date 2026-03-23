@@ -18,19 +18,22 @@
 
             <h2 class="tituloForm">Cadastrar cliente</h2>
 
-            <form>
+            <form method="post" th:action="@{/adm/cadastrar-cliente}">
 
                 <label>Nome:</label>
-                <input type="text">
+                <input type="text" name="nome">
 
                 <label>Apelido:</label>
-                <input type="text">
+                <input type="text" name="apelido">
 
                 <label>Telefone:</label>
-                <input type="text">
+                <input type="text" name="telefone">
+
+                <label >Email:</label>
+                <input type="text" name="email" >
 
                 <label>Senha:</label>
-                <input type="password">
+                <input type="password" name="senha">
                 <button class="button" type="submit">Cadastrar</button>
 
             </form>

@@ -4,6 +4,15 @@ body{
     margin:0;
 }
 
+.icone-historico{
+    width: 100%;
+    color:#f5f6fa;
+    font-size: 20px;
+    
+
+}
+
+
 .labelPerfil{
     background-color:white;
     padding:10px;
