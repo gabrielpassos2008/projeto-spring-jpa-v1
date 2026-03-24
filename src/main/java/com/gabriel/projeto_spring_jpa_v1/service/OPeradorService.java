@@ -22,4 +22,8 @@ public class OPeradorService {
     public Optional<Operador> operadorPorId(Long id){
         return repository.findById(id);
     }
+
+    public void salvar(){
+        
+    }
 }
