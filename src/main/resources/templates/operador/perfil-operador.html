@@ -33,7 +33,7 @@
                 <label>Senha:</label>
                 <p class="labelPerfil" th:text="${operador.senha}">dsds</p>
 
-                <a th:href="@{'/adm/perfil/editar/'+${operador.id}}" class="btn">Editar</a>
+                <a th:href="@{/adm/perfil/editar}" class="btn">Editar</a>
 
                 <a th:href="@{/adm/sair}" class="btn">Sair</a>
             </form>

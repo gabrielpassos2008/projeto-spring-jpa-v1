@@ -64,8 +64,21 @@ public class OperadorController {
         return mv;
     }
     
+    @GetMapping("/adm/perfil/editar")
+    public ModelAndView getEditarPerfil(HttpSession session) {
+        if (session.getAttribute("usuario")== null) {
+            return new ModelAndView("redirect:/adm");
+        }
+        Operador operadorSession = (Operador) session.getAttribute("usuario");
+        Operador operador = operadorService.operadorPorId(operadorSession.getId()).orElse(null);
 
+        ModelAndView mv = new ModelAndView("operador/editar-Perfil-operador");
+        mv.addObject("operador", operador);
+        return mv;
+    }
     
+    
+
     @GetMapping("/adm/cadastrar-cliente/{id}")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
         if(session.getAttribute("usuario")== null){

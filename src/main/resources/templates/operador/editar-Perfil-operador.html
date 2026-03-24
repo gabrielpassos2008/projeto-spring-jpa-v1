@@ -21,17 +21,17 @@
 
             <form>
 
-                <label>Nome do mercado:</label>
-                <input type="text">
+                <label>Nome:</label>
+                <input type="text" th:value="${operador.nome}">
 
                 <label>Telefone:</label>
-                <input type="text">
+                <input type="text" th:value="${operador.telefone}">
 
                 <label>Email:</label>
-                <input type="text">
+                <input type="text" th:value="${operador.email}">
 
                 <label>Senha:</label>
-                <input type="text">
+                <input type="text" th:value="${operador.senha}">
 
                 <button class="button" type="submit">Salvar</button>
 
