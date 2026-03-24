@@ -1,6 +1,5 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,7 @@ import lombok.var;
 
 @Controller
 public class OperadorController {
-    
+
     @Autowired
     private OPeradorService operadorService;
 
@@ -30,27 +29,26 @@ public class OperadorController {
     @Autowired
     private DividaService dividaService;
 
-
     @GetMapping("/adm")
     public String getLoginAdm() {
         return "operador/login-operador";
     }
-    
+
     @PostMapping("/adm")
-    public String postLoginAdm(Operador operador,HttpSession session) {
+    public String postLoginAdm(Operador operador, HttpSession session) {
         Operador operadorBanco = operadorService.validarLogin(operador.getEmail(), operador.getSenha());
 
         if (operadorBanco != null) {
             session.setAttribute("usuario", operadorBanco);
             return "redirect:/adm/pesquisar-usuario";
-        }else{
+        } else {
             return "operador/login-operador";
         }
     }
 
     @GetMapping("/adm/perfil")
     public ModelAndView getPerfil(HttpSession session) {
-        if (session.getAttribute("usuario")== null) {
+        if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
         Operador operadorSession = (Operador) session.getAttribute("usuario");
@@ -58,15 +56,15 @@ public class OperadorController {
         if (operador == null) {
             return new ModelAndView("redirect:/adm");
         }
-        
+
         ModelAndView mv = new ModelAndView("operador/perfil-operador");
         mv.addObject("operador", operador);
         return mv;
     }
-    
+
     @GetMapping("/adm/perfil/editar")
     public ModelAndView getEditarPerfil(HttpSession session) {
-        if (session.getAttribute("usuario")== null) {
+        if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
         Operador operadorSession = (Operador) session.getAttribute("usuario");
@@ -76,10 +74,10 @@ public class OperadorController {
         mv.addObject("operador", operador);
         return mv;
     }
-    
+
     @PostMapping("/adm/perfil/editar")
-    public String postEditarPerfil(HttpSession session,Operador operadorForm) {
-        if (session.getAttribute("usuario")== null) {
+    public String postEditarPerfil(HttpSession session, Operador operadorForm) {
+        if (session.getAttribute("usuario") == null) {
             return "redirect:/adm";
         }
         Operador operadorSession = (Operador) session.getAttribute("usuario");
@@ -89,7 +87,7 @@ public class OperadorController {
         operador.setEmail(operadorForm.getEmail());
         operador.setTelefone(operadorForm.getTelefone());
         operador.setSenha(operadorForm.getSenha());
-    
+
         operadorService.salvar(operador);
 
         return "redirect:/adm/pesquisar-usuario";
@@ -97,7 +95,7 @@ public class OperadorController {
 
     @GetMapping("/adm/cadastrar-cliente")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
-        if(session.getAttribute("usuario")== null){
+        if (session.getAttribute("usuario") == null) {
             return "redirect:/adm";
         }
         return "operador/cadastrarCliente-operador";
@@ -105,7 +103,7 @@ public class OperadorController {
 
     @PostMapping("/adm/cadastrar-cliente")
     public String postCadastrarCliente(HttpSession session, Cliente cliente) {
-        if(session.getAttribute("usuario")== null){
+        if (session.getAttribute("usuario") == null) {
             return "redirect:/adm";
         }
         Operador operadorSession = (Operador) session.getAttribute("usuario");
@@ -118,25 +116,26 @@ public class OperadorController {
 
         if (clienteService.cadastrarCLiente(cliente)) {
             return "redirect:/adm/pesquisar-usuario";
-        };
-            return "redirect:/adm/cadastrar-cliente";
+        }
+        ;
+        return "redirect:/adm/cadastrar-cliente";
 
     }
 
     @GetMapping("/adm/pesquisar-usuario")
-    public ModelAndView getPesquisarUsuario(HttpSession session,@RequestParam(required = false) String search) {
+    public ModelAndView getPesquisarUsuario(HttpSession session, @RequestParam(required = false) String search) {
 
-        if(session.getAttribute("usuario") == null){
+        if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
         ModelAndView mv = new ModelAndView("operador/pesquisar-usuario");
 
         // Verifica se o campo de busca está vazio ou não foi informado
         // search == null -> significa que não foi enviado nenhum valor
-        // search.isBlank() -> verifica se está vazio ou só com espaços ("   ")
-        // || -> OU (se qualquer uma das condições for verdadeira, entra no if) 
+        // search.isBlank() -> verifica se está vazio ou só com espaços (" ")
+        // || -> OU (se qualquer uma das condições for verdadeira, entra no if)
         if (search == null || search.isBlank()) {
-            mv.addObject("mensagem","Digite um nome para pesquisar.");
+            mv.addObject("mensagem", "Digite um nome para pesquisar.");
             return mv;
         }
 
@@ -145,20 +144,20 @@ public class OperadorController {
             Integer total = dividaService.retornarTotalDivida(cliente.getId());
             cliente.setTotalDivida(total);
         }
-        
+
         // Verifica se a lista "todosClientes" está vazia (sem nenhum cliente dentro)
         // isEmpty() -> retorna true se a lista não tiver elementos
         if (todosClientes.isEmpty()) {
-            mv.addObject("mensagem","Nenhum cliente encontrado.");
-        }else{
-            mv.addObject("clientes",todosClientes);
+            mv.addObject("mensagem", "Nenhum cliente encontrado.");
+        } else {
+            mv.addObject("clientes", todosClientes);
         }
         return mv;
     }
 
     @GetMapping("/adm/abater-divida/{id}")
-    public ModelAndView getAbaterDivida(HttpSession session, @PathVariable("id")Long id) {
-        if (session.getAttribute("usuario")== null) {
+    public ModelAndView getAbaterDivida(HttpSession session, @PathVariable("id") Long id) {
+        if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
         ModelAndView mv = new ModelAndView("operador/abater-divida-operador");
@@ -172,11 +171,12 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/abater-divida/{id}")
-    public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,@RequestParam("valor") Integer valor) {
-        if(session.getAttribute("usuario") == null){
+    public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,
+            @RequestParam("valor") Integer valor) {
+        if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
-        
+
         boolean sucesso = dividaService.abaterDivida(id, valor);
         if (!sucesso) {
             System.out.println("nao tem divida");
@@ -184,11 +184,11 @@ public class OperadorController {
         }
         return new ModelAndView("redirect:/adm/pesquisar-usuario");
     }
-    
+
     @GetMapping("/adm/salvar-divida/{id}")
     public ModelAndView getSalvarDivida(HttpSession session, @PathVariable("id") Long id) {
-        if (session.getAttribute("usuario")== null) {
-            return new ModelAndView("redirect:/adm") ;
+        if (session.getAttribute("usuario") == null) {
+            return new ModelAndView("redirect:/adm");
         }
         var clientePorId = clienteService.retornaClientePorId(id);
         ModelAndView mv = new ModelAndView("operador/salvarDivida-operador");
@@ -197,21 +197,19 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/salvar-divida/{id}")
-    public ModelAndView postSalvarDivida(HttpSession session,@PathVariable("id") Long id, @RequestParam("valor") Integer valor) {
-        if (session.getAttribute("usuario")== null) {
-            return new ModelAndView("redirect:/adm") ;
+    public ModelAndView postSalvarDivida(HttpSession session, @PathVariable("id") Long id,
+            @RequestParam("valor") Integer valor) {
+        if (session.getAttribute("usuario") == null) {
+            return new ModelAndView("redirect:/adm");
         }
-        dividaService.salvarDivida(id,valor);
+        dividaService.salvarDivida(id, valor);
         return new ModelAndView("redirect:/adm/pesquisar-usuario");
     }
-    
-
 
     @GetMapping("/adm/sair")
     public String getSair(HttpSession session) {
         session.invalidate();
         return "redirect:/adm";
     }
-    
-    
+
 }
