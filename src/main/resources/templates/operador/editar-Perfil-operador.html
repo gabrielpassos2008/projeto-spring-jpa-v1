@@ -19,7 +19,7 @@
 
             <h2 class="tituloForm">Perfil</h2>
 
-            <form>
+            <form method="post"  th:action="@{/adm/perfil/editar}">
 
                 <label>Nome:</label>
                 <input type="text" th:value="${operador.nome}">

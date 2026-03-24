@@ -77,7 +77,25 @@ public class OperadorController {
         return mv;
     }
     
+    @PostMapping("/adm/perfil/editar")
+    public String postEditarPerfil(HttpSession session,Operador operadorForm) {
+        if (session.getAttribute("usuario")== null) {
+            return "redirect:/adm";
+        }
+        Operador operadorSession = (Operador) session.getAttribute("usuario");
+        Operador operador = operadorService.operadorPorId(operadorSession.getId()).orElse(null);
+
+        operador.setNome(operadorForm.getNome());
+        operador.setEmail(operadorForm.getEmail());
+        operador.setTelefone(operadorForm.getTelefone());
     
+        // ⚠️ senha só se quiser mesmo
+        operador.setSenha(operadorForm.getSenha());
+    
+        operadorService.salvar(operador);
+
+        return "operador/editar-Perfil-operador";
+    }
 
     @GetMapping("/adm/cadastrar-cliente/{id}")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
