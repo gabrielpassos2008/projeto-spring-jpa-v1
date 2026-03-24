@@ -23,7 +23,7 @@ public class OPeradorService {
         return repository.findById(id);
     }
 
-    public void salvar(){
-        
+    public void salvar(Operador operador){
+        repository.save(operador);
     }
 }

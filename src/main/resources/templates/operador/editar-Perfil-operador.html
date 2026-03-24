@@ -22,16 +22,16 @@
             <form method="post"  th:action="@{/adm/perfil/editar}">
 
                 <label>Nome:</label>
-                <input type="text" th:value="${operador.nome}">
+                <input type="text" th:value="${operador.nome}" name="nome">
 
                 <label>Telefone:</label>
-                <input type="text" th:value="${operador.telefone}">
+                <input type="text" th:value="${operador.telefone}" name="telefone">
 
                 <label>Email:</label>
-                <input type="text" th:value="${operador.email}">
+                <input type="text" th:value="${operador.email}" name="email">
 
                 <label>Senha:</label>
-                <input type="text" th:value="${operador.senha}">
+                <input type="text" th:value="${operador.senha}" name="senha">
 
                 <button class="button" type="submit">Salvar</button>
 

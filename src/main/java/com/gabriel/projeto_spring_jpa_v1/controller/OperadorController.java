@@ -88,16 +88,14 @@ public class OperadorController {
         operador.setNome(operadorForm.getNome());
         operador.setEmail(operadorForm.getEmail());
         operador.setTelefone(operadorForm.getTelefone());
-    
-        // ⚠️ senha só se quiser mesmo
         operador.setSenha(operadorForm.getSenha());
     
         operadorService.salvar(operador);
 
-        return "operador/editar-Perfil-operador";
+        return "redirect:/adm/pesquisar-usuario";
     }
 
-    @GetMapping("/adm/cadastrar-cliente/{id}")
+    @GetMapping("/adm/cadastrar-cliente")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
         if(session.getAttribute("usuario")== null){
             return "redirect:/adm";
