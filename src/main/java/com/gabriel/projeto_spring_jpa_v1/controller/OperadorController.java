@@ -48,7 +48,25 @@ public class OperadorController {
         }
     }
 
-    @GetMapping("/adm/cadastrar-cliente")
+    @GetMapping("/adm/perfil")
+    public ModelAndView getPerfil(HttpSession session) {
+        if (session.getAttribute("usuario")== null) {
+            return new ModelAndView("redirect:/adm");
+        }
+        Operador operadorSession = (Operador) session.getAttribute("usuario");
+        Operador operador = operadorService.operadorPorId(operadorSession.getId()).orElse(null);
+        if (operador == null) {
+            return new ModelAndView("redirect:/adm");
+        }
+        
+        ModelAndView mv = new ModelAndView("operador/perfil-operador");
+        mv.addObject("operador", operador);
+        return mv;
+    }
+    
+
+    
+    @GetMapping("/adm/cadastrar-cliente/{id}")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
         if(session.getAttribute("usuario")== null){
             return "redirect:/adm";
@@ -75,7 +93,6 @@ public class OperadorController {
             return "redirect:/adm/cadastrar-cliente";
 
     }
-
 
     @GetMapping("/adm/pesquisar-usuario")
     public ModelAndView getPesquisarUsuario(HttpSession session,@RequestParam(required = false) String search) {
@@ -160,22 +177,7 @@ public class OperadorController {
     }
     
 
-    @GetMapping("/adm/perfil")
-    public String getPerfil(HttpSession session) {
-        if (session.getAttribute("usuario")== null) {
-            return "redirect:/adm";
-        }
-        return "operador/perfil-operador";
-    }
-    
-    @GetMapping("/adm/perfil/editar")
-    public String getEditarPerfil(HttpSession session) {
-        if (session.getAttribute("usuario")== null) {
-            return "redirect:/adm";
-        }
-        return "operador/editar-Perfil-operador";
-    }
-    
+
     @GetMapping("/adm/sair")
     public String getSair(HttpSession session) {
         session.invalidate();

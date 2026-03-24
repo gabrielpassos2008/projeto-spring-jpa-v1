@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
+
 <body>
 
     <div class="container">
         <div class="menu">
-            <a  th:href="@{/adm/pesquisar-usuario}">Cadastrar a divida</a>
-            <a  th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
-            <a  th:href="@{/adm/perfil}" class="ativo">Perfil</a>
+            <a th:href="@{/adm/pesquisar-usuario}">Cadastrar a divida</a>
+            <a th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
+            <a th:href="@{/adm/perfil}" class="ativo">Perfil</a>
         </div>
 
         <div class="formCentralizado">
 
             <h2 class="tituloForm">Perfil</h2>
-
+            <label>Nome:</label>
             <form>
-    
-                <label>Nome:</label>
-                <p class="labelPerfil">sdsds</p>
+                <p class="labelPerfil" th:text="${operador.nome}"></p>
 
                 <label>Telefone:</label>
-                <p class="labelPerfil">sdsds</p>
+                <p class="labelPerfil" th:text="${operador.telefone}"></p>
 
                 <label>Email:</label>
-                <p class="labelPerfil">sdsd</p>
+                <p class="labelPerfil" th:text="${operador.email}">sdsd</p>
 
                 <label>Senha:</label>
-                <p class="labelPerfil">dsds</p>
+                <p class="labelPerfil" th:text="${operador.senha}">dsds</p>
 
-                <a th:href="@{/adm/perfil/editar}" class="btn">Editar</a>
+                <a th:href="@{'/adm/perfil/editar/'+${operador.id}}" class="btn">Editar</a>
 
                 <a th:href="@{/adm/sair}" class="btn">Sair</a>
-
             </form>
-
         </div>
     </div>
 
 
 </body>
+
 </html>
