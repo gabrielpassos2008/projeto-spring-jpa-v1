@@ -24,32 +24,23 @@
         <!-- LADO ESQUERDO -->
         <div class="resumo">
 
-            <h2 class="tituloForm">Resumo divida:</h2>
+            <h2 class="tituloForm">Resumo divida: <span th:text="${cliente.nome}"></span></h2>
 
             <div class="card">
                 <i class="bi bi-cash-stack"></i>
                 <div>
-                    <p>Total em dívidas</p>
-                    <h3>R$ 1200,00</h3>
+                    <p>Total em dívidas:</p>
+                    <h3 th:text="${'R$ '+totalPendente}"></h3>
                 </div>
             </div>
 
             <div class="card">
                 <i class="bi bi-check-circle verde"></i>
                 <div>
-                    <p>Total pago no mês</p>
-                    <h3>R$ 3.200,00</h3>
+                    <p>Total pago: </p>
+                    <h3 th:text="${ 'R$ '+totalPago}"  ></h3>
                 </div>
             </div>
-
-            <div class="card">
-                <i class="bi bi-people azul"></i>
-                <div>
-                    <p>Clientes devendo</p>
-                    <h3>23 clientes</h3>
-                </div>
-            </div>
-
         </div>
 
 
