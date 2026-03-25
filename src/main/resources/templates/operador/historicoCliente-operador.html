@@ -16,25 +16,20 @@
             <a th:href="@{/adm/perfil}">Perfil</a>
         </div>
 
-
         <div class="lista-clientes">
-            <h1 class="tituloForm">historico do: <span class="nome-cliente">Roberto</span></h1>
-            <div class="card-historico" th:each="cliente : ${clientes}">
+            <h1 class="tituloForm">
+                Histórico do:<span class="nome-cliente" th:text="${cliente.nome}">Roberto</span>
+            </h1>
+            <div class="card-historico" th:each="divida : ${dividas}">
                 <div class="info-cliente">
-                    <span class="valor">R$ 100,00</span>
-                    <span class="valor">Data: 10/9/2022</span>
-                    <span class="valor abatimento"> Status: Abatimento</span>
-                </div>
-            </div>
-            <div class="card-historico" th:each="cliente : ${clientes}">
-                <div class="info-cliente">
-                    <span class="valor">R$ 100,00</span>
-                    <span class="valor">Data: 10/9/2022</span>
-                    <span class="valor divida"> Status: divida</span>
+                    <span class="valor">
+                        R$ <span th:text="${divida.valor}"></span></span>
+                    <span class="valor">Data: <span th:text="${#temporals.format(divida.data, 'dd/MM/yyyy HH:mm')}"></span></span>
+                    <span class="valor">Status: <span th:text="${divida.status}" th:class="${divida.status == 'PAGO' ? 'abatimento' : 'divida'}">PAGO</span></span>
                 </div>
             </div>
         </div>
-        <a href="" class="btn-voltar">voltar</a>
+        <a th:href="@{/adm/pesquisar-usuario}" class="btn-voltar">voltar</a>
 
     </div>
 </body>
