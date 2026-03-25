@@ -189,6 +189,11 @@ body{
     text-align:center;
     margin-bottom:10px;
 }
+.tituloCard{
+    text-align:center;
+    margin: 5px;
+    font-size: 25px;
+}
 
 form{
     display:flex;
