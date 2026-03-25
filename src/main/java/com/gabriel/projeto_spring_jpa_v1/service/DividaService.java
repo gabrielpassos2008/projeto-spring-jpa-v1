@@ -74,6 +74,23 @@ public class DividaService {
         return dividaRepository.somarTotalDivida();
     }
 
+
+    public Integer retornaTotalPendenteId(Long id){
+        Integer valorTotal = dividaRepository.somarTotalPendenteId(id);
+        if (valorTotal == null) {
+            valorTotal =  0;
+        }
+        return valorTotal;
+    }
+    public Integer retornaTotalPagoId(Long id){
+        Integer valorTotal = dividaRepository.somarTotalPagoId(id);
+        if (valorTotal == null) {
+            valorTotal =  0;
+        }
+        valorTotal = Math.abs(valorTotal);
+        return valorTotal;
+    }
+
     public Integer retornaTotalPago(){
         Integer total = dividaRepository.somarTotalPago();
         total = Math.abs(total);

@@ -189,6 +189,10 @@ public class OperadorController {
             return new ModelAndView("redirect:/adm");
         }
         ModelAndView mv = new ModelAndView("operador/abater-divida-operador");
+        Integer totalPago = dividaService.retornaTotalPagoId(id);
+        Integer totalPendente = dividaService.retornarTotalDividaId(id);
+        mv.addObject("totalPago", totalPago);
+        mv.addObject("totalPendente", totalPendente);
         var clientePorId = clienteService.retornaClientePorId(id);
         if (!clientePorId.isPresent()) {
             mv.setViewName("operador/pesquisar-usuario");
@@ -220,6 +224,10 @@ public class OperadorController {
         }
         var clientePorId = clienteService.retornaClientePorId(id);
         ModelAndView mv = new ModelAndView("operador/salvarDivida-operador");
+        Integer totalPago = dividaService.retornaTotalPagoId(id);
+        Integer totalPendente = dividaService.retornarTotalDividaId(id);
+        mv.addObject("totalPago", totalPago);
+        mv.addObject("totalPendente", totalPendente);
         mv.addObject("cliente", clientePorId.get());
         return mv;
     }
