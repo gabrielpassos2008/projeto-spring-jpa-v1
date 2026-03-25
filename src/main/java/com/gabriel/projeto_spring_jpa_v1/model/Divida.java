@@ -2,6 +2,7 @@ package com.gabriel.projeto_spring_jpa_v1.model;
 
 import java.time.LocalDateTime;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Divida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    private LocalDateTime data;
     private Integer valor;
     private String status;
 

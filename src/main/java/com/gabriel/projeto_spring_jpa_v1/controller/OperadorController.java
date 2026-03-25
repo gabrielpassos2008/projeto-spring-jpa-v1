@@ -1,5 +1,8 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
+import com.gabriel.projeto_spring_jpa_v1.model.Divida;
 import com.gabriel.projeto_spring_jpa_v1.model.Operador;
 import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
 import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
@@ -61,6 +65,20 @@ public class OperadorController {
         mv.addObject("operador", operador);
         return mv;
     }
+
+    @GetMapping("/adm/historico-cliente/{id}")
+    public ModelAndView getHistoricoCliente(HttpSession session, @PathVariable("id") Long id) {
+        if (session.getAttribute("usuario") == null) {
+            return new ModelAndView("redirect:/adm");
+        }
+        ModelAndView mv = new ModelAndView("operador/historicoCliente-operador");
+        List<Divida> dividas = dividaService.retornaTodasDividaId(id);
+        Cliente cliente = clienteService.retornaClientePorId(id).get();
+        mv.addObject("cliente", cliente);
+        mv.addObject("dividas", dividas);
+        return mv;
+    }
+    
 
     @GetMapping("/adm/perfil/editar")
     public ModelAndView getEditarPerfil(HttpSession session) {
