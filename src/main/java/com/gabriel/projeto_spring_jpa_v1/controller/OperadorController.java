@@ -74,6 +74,8 @@ public class OperadorController {
         ModelAndView mv = new ModelAndView("operador/historicoCliente-operador");
         List<Divida> dividas = dividaService.retornaTodasDividaId(id);
         Cliente cliente = clienteService.retornaClientePorId(id).get();
+        Integer totalDivida = dividaService.retornarTotalDividaId(id);
+        mv.addObject("totalDivida", totalDivida);
         mv.addObject("cliente", cliente);
         mv.addObject("dividas", dividas);
         return mv;

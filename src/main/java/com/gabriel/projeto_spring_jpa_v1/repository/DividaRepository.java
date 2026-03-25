@@ -15,7 +15,7 @@ public interface DividaRepository extends JpaRepository<Divida, Long>{
 
     List<Divida> findByClienteIdOrderByDataDesc(Long clienteId);
 
-    @Query("SELECT SUM(d.valor) FROM Didida d")
+    @Query("SELECT SUM(d.valor) FROM Divida d")
     Integer somarTotalDivida();
 
     @Query("SELECT SUM(d.valor) FROM Divida d WHERE d.status = 'PAGO'")

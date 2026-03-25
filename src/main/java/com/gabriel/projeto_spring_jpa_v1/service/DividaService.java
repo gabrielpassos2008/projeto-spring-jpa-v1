@@ -62,7 +62,12 @@ public class DividaService {
     }
 
     public Integer retornarTotalDividaId(Long clienteid) {
-        return dividaRepository.somarDividasPorCliente(clienteid);
+        Integer valorTotal = dividaRepository.somarDividasPorCliente(clienteid);
+        if (valorTotal == null) {
+            valorTotal = 0;
+        }
+
+        return valorTotal;
     }
 
     public Integer retornaTotalDivida(){
