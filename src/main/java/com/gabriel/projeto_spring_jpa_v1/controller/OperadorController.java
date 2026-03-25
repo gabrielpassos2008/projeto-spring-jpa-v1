@@ -159,7 +159,7 @@ public class OperadorController {
 
         var todosClientes = clienteService.retornarClienteNome(search);
         for (Cliente cliente : todosClientes) {
-            Integer total = dividaService.retornarTotalDivida(cliente.getId());
+            Integer total = dividaService.retornarTotalDividaId(cliente.getId());
             cliente.setTotalDivida(total);
         }
 

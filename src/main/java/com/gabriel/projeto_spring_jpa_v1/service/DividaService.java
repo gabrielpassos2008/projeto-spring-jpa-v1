@@ -61,10 +61,20 @@ public class DividaService {
         return true;
     }
 
-    public Integer retornarTotalDivida(Long clienteid) {
+    public Integer retornarTotalDividaId(Long clienteid) {
         return dividaRepository.somarDividasPorCliente(clienteid);
     }
 
+    public Integer retornaTotalDivida(){
+        return dividaRepository.somarTotalDivida();
+    }
+
+    public Integer retornaTotalPago(){
+        Integer total = dividaRepository.somarTotalPago();
+        total = Math.abs(total);
+        return total;
+    }
+    
     public List<Divida> retornaTodasDividaId(Long id) {
         return dividaRepository.findByClienteIdOrderByDataDesc(id);
     }

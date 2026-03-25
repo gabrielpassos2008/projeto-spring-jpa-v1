@@ -38,4 +38,7 @@ public class ClienteService {
         }
     }
 
+    public Long retornaTotalDeClienteId(Long idOPerador){
+        return repository.countByOperadorId(idOPerador);
+    }
 }
