@@ -13,13 +13,8 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    public boolean validarLogin(String email,String senha){
-        Optional<Cliente> clienteEncomtrado = repository.findByEmailAndSenha(email, senha);
-        if(clienteEncomtrado.isPresent() ) {
-            return true;
-        } else {
-            return false;
-        }
+    public Cliente validarLogin(String email,String senha){
+        return repository.findByEmailAndSenha(email, senha).orElse(null);
     }
     public List<Cliente> retornarClienteNome(String nome){
         return repository.findByNomeContainingIgnoreCase(nome);
