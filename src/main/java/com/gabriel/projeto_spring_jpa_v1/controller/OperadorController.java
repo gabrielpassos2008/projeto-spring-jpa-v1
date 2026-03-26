@@ -72,7 +72,7 @@ public class OperadorController {
             return new ModelAndView("redirect:/adm");
         }
         ModelAndView mv = new ModelAndView("operador/historicoCliente-operador");
-        List<Divida> dividas = dividaService.retornaTodasDividaId(id);
+        List<Divida> dividas = dividaService.retornaHistoricoDividaId(id);
         Cliente cliente = clienteService.retornaClientePorId(id).get();
         Integer totalDivida = dividaService.retornarTotalDividaId(id);
         mv.addObject("totalDivida", totalDivida);
@@ -211,7 +211,6 @@ public class OperadorController {
 
         boolean sucesso = dividaService.abaterDivida(id, valor);
         if (!sucesso) {
-            System.out.println("nao tem divida");
             return new ModelAndView("redirect:/adm/pesquisar-usuario");
         }
         return new ModelAndView("redirect:/adm/pesquisar-usuario");
