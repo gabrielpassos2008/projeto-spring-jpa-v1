@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu">
+            <a th:href="@{/adm/pesquisar-usuario}" class="ativo">Cadastrar a divida</a>
+            <a th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
+            <a th:href="@{/adm/perfil}">Perfil</a>
+        </div>
+
+
+        <div class="lista-clientes">
+            <div class="container-boas-vindas">
+                <h1 class="titulo-boas-vindas">
+                    Histórico de <span>Gabriel</span> 📜
+                </h1>
+                <p class="subtitulo-boas-vindas">
+                    Veja todas as movimentações financeiras
+                </p>
+            </div>
+            <div class="card-historico" th:each="cliente : ${clientes}">
+                <div class="info-cliente">
+                    <span class="valor">R$ 100,00</span>
+                    <span class="valor">Data: 10/9/2022</span>
+                    <span class="valor abatimento"> Status: Abatimento</span>
+                </div>
+            </div>
+            <div class="card-historico" th:each="cliente : ${clientes}">
+                <div class="info-cliente">
+                    <span class="valor">R$ 100,00</span>
+                    <span class="valor">Data: 10/9/2022</span>
+                    <span class="valor divida"> Status: divida</span>
+                </div>
+            </div>
+        </div>
+        <a href="" class="btn-voltar">voltar</a>
+
+    </div>
+</body>
+
+</html>
