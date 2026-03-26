@@ -12,6 +12,30 @@ body{
 
 }
 
+
+.container-boas-vindas {
+    text-align: center;
+}
+
+.titulo-boas-vindas {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.titulo-boas-vindas span {
+    color: #f26a2e;
+    font-weight: 700;
+}
+
+.subtitulo-boas-vindas {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+
 .btn-voltar{
     
     background:#f26a2e;
