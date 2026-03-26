@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>Document</title>
 </head>
 
 <body>
     <div class="container">
         <div class="menu">
-            <a th:href="@{/adm/pesquisar-usuario}" class="ativo">Cadastrar a divida</a>
-            <a th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
-            <a th:href="@{/adm/perfil}">Perfil</a>
+            <a th:href="@{/}" >Dashboard</a>
+            <a th:href="@{/historico}" class="ativo">Histórico </a>
+            <a th:href="@{/perfil}" >Perfil</a>
         </div>
 
 
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <a href="" class="btn-voltar">voltar</a>
+        <a th:href="@{/}" class="btn-voltar">voltar</a>
 
     </div>
 </body>
