@@ -74,7 +74,6 @@ public class DividaService {
         return dividaRepository.somarTotalDivida();
     }
 
-
     public Integer retornaTotalPendenteId(Long id){
         Integer valorTotal = dividaRepository.somarTotalPendenteId(id);
         if (valorTotal == null) {
@@ -82,6 +81,7 @@ public class DividaService {
         }
         return valorTotal;
     }
+
     public Integer retornaTotalPagoId(Long id){
         Integer valorTotal = dividaRepository.somarTotalPagoId(id);
         if (valorTotal == null) {
@@ -97,7 +97,7 @@ public class DividaService {
         return total;
     }
     
-    public List<Divida> retornaTodasDividaId(Long id) {
+    public List<Divida> retornaHistoricoDividaId(Long id) {
         return dividaRepository.findByClienteIdOrderByDataDesc(id);
     }
 
