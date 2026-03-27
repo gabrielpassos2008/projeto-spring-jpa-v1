@@ -19,18 +19,19 @@
         <div class="formCentralizado">
 
             <h2 class="tituloForm">Perfil</h2>
-            <label>Nome:</label>
+            
             <form>
-                <p class="labelPerfil" th:text="${operador.nome}"></p>
+                <label>Nome:</label>
+                <p class="labelPerfil" th:text="${cliente.apelido}"></p>
 
                 <label>Telefone:</label>
-                <p class="labelPerfil" th:text="${operador.telefone}"></p>
+                <p class="labelPerfil" th:text="${cliente.telefone}"></p>
 
                 <label>Email:</label>
-                <p class="labelPerfil" th:text="${operador.email}">sdsd</p>
+                <p class="labelPerfil" th:text="${cliente.email}">sdsd</p>
 
                 <label>Senha:</label>
-                <p class="labelPerfil" th:text="${operador.senha}">dsds</p>
+                <p class="labelPerfil" th:text="${cliente.senha}">dsds</p>
 
                 <a th:href="@{/perfil/editar}" class="btn">Editar</a>
 

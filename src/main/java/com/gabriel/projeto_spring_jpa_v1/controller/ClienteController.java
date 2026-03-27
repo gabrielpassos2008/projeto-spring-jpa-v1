@@ -77,11 +77,15 @@ public class ClienteController {
     }
 
     @GetMapping("/perfil")
-    public String getPerfil(HttpSession session) {
+    public ModelAndView getPerfil(HttpSession session) {
         if (session.getAttribute("cliente") == null) {
-            return "redirect:/login";
+            return new ModelAndView("redirect:/login");
         }
-        return "cliente/perfil-cliente";
+        Cliente clienteSession = (Cliente) session.getAttribute("cliente");
+        Cliente cliente = clienteService.retornaClientePorId(clienteSession.getId()).orElse(null);
+        ModelAndView mv = new ModelAndView("cliente/perfil-cliente");
+        mv.addObject("cliente", cliente);
+        return mv;
     }
 
     @GetMapping("/perfil/editar")
