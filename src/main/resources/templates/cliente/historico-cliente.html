@@ -20,24 +20,20 @@
         <div class="lista-clientes">
             <div class="container-boas-vindas">
                 <h1 class="titulo-boas-vindas">
-                    Histórico de <span>Gabriel</span> 📜
+                    Histórico de <span>Transações</span>
                 </h1>
                 <p class="subtitulo-boas-vindas">
-                    Veja todas as movimentações financeiras
+                    Acompanhe todos os lançamentos e pagamentos realizados
                 </p>
             </div>
-            <div class="card-historico" th:each="cliente : ${clientes}">
-                <div class="info-cliente">
-                    <span class="valor">R$ 100,00</span>
-                    <span class="valor">Data: 10/9/2022</span>
-                    <span class="valor abatimento"> Status: Abatimento</span>
-                </div>
+            <div class="card-historico">
+                <h2 class="tituloCard">Total a pagar: <span class="tituloCard" th:text="${totalDivida != 0 ? 'R$ ' + totalDivida : 'Você não esta devendo'}"></span></h2>
             </div>
-            <div class="card-historico" th:each="cliente : ${clientes}">
+            <div class="card-historico" th:each="divida : ${dividas}">
                 <div class="info-cliente">
-                    <span class="valor">R$ 100,00</span>
-                    <span class="valor">Data: 10/9/2022</span>
-                    <span class="valor divida"> Status: divida</span>
+                    <span class="valor">R$ <span th:text="${divida.valor}"></span></span>
+                    <span class="valor">Data: <span th:text="${#temporals.format(divida.data, 'dd/MM/yyyy HH:mm')}"></span></span>
+                    <span class="valor">Status: <span th:text="${divida.status}" th:class="${divida.status == 'PAGO' ? 'abatimento' : 'divida'}">PAGO</span></span>
                 </div>
             </div>
         </div>
