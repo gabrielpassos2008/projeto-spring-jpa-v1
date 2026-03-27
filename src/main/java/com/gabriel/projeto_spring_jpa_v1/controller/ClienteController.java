@@ -16,6 +16,8 @@ import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
 
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -89,13 +91,34 @@ public class ClienteController {
     }
 
     @GetMapping("/perfil/editar")
-    public String getEditarPerfil(HttpSession session) {
+    public ModelAndView getEditarPerfil(HttpSession session) {
+        if (session.getAttribute("cliente") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+        Cliente clienteSession = (Cliente) session.getAttribute("cliente");
+        Cliente cliente = clienteService.retornaClientePorId(clienteSession.getId()).orElse(null);
+        ModelAndView mv = new ModelAndView("cliente/editar-Perfil-cliente");
+        mv.addObject("cliente", cliente);
+        return mv;
+    }
+    
+    @PostMapping("/perfil/editar")
+    public String postEditarPerfil(HttpSession session, Cliente clienteForm) {
         if (session.getAttribute("cliente") == null) {
             return "redirect:/login";
         }
-        return "cliente/editar-Perfil-cliente";
+        Cliente clienteSession = (Cliente) session.getAttribute("cliente");
+        Cliente cliente = clienteService.retornaClientePorId(clienteSession.getId()).orElse(null);
+        cliente.setApelido(clienteForm.getNome());
+        cliente.setEmail(clienteForm.getEmail());
+        cliente.setTelefone(clienteForm.getTelefone());
+        cliente.setSenha(clienteForm.getSenha());
+
+        clienteService.cadastrarCLiente(cliente);
+        return "redirect:/";
     }
     
+
     @GetMapping("/sair")
     public String getSair(HttpSession session) {
         session.invalidate();
