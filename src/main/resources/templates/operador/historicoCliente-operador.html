@@ -21,14 +21,17 @@
                 Histórico do: <span class="nome-cliente" th:text="${cliente.nome}"></span>
             </h1>
             <div class="card-historico">
-                <h2 class="tituloCard">Total a pagar: <span class="tituloCard" th:text="${totalDivida != 0 ? 'R$ ' + totalDivida : 'Cliente não esta devendo'}"></span></h2>
+                <h2 class="tituloCard">Total a pagar: <span class="tituloCard"
+                        th:text="${totalDivida != 0 ? 'R$ ' + totalDivida : 'Cliente não esta devendo'}"></span></h2>
             </div>
             <div class="card-historico" th:each="divida : ${dividas}">
                 <div class="info-cliente">
                     <span class="valor">
                         R$ <span th:text="${divida.valor}"></span></span>
-                    <span class="valor">Data: <span th:text="${#temporals.format(divida.data, 'dd/MM/yyyy HH:mm')}"></span></span>
-                    <span class="valor">Status: <span th:text="${divida.status}" th:class="${divida.status == 'PAGO' ? 'abatimento' : 'divida'}">PAGO</span></span>
+                    <span class="valor">Data: <span
+                            th:text="${#temporals.format(divida.data, 'dd/MM/yyyy HH:mm')}"></span></span>
+                    <span class="valor">Status: <span th:text="${divida.status}"
+                            th:class="${divida.status == 'PAGO' ? 'abatimento' : 'divida'}">PAGO</span></span>
                 </div>
             </div>
         </div>

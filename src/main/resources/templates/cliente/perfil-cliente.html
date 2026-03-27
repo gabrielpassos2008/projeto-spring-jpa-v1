@@ -12,14 +12,14 @@
 
     <div class="container">
         <div class="menu">
-            <a th:href="@{/}" >Dashboard</a>
-            <a th:href="@{/historico}" >Histórico </a>
+            <a th:href="@{/}">Dashboard</a>
+            <a th:href="@{/historico}">Histórico </a>
             <a th:href="@{/perfil}" class="ativo">Perfil</a>
         </div>
         <div class="formCentralizado">
 
             <h2 class="tituloForm">Perfil</h2>
-            
+
             <form>
                 <label>Nome:</label>
                 <p class="labelPerfil" th:text="${cliente.apelido}"></p>

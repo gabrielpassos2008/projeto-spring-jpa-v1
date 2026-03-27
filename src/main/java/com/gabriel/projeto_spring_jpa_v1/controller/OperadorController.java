@@ -1,6 +1,5 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +79,6 @@ public class OperadorController {
         mv.addObject("dividas", dividas);
         return mv;
     }
-    
 
     @GetMapping("/adm/perfil/editar")
     public ModelAndView getEditarPerfil(HttpSession session) {
@@ -155,7 +153,7 @@ public class OperadorController {
         mv.addObject("totalDividaPaga", totalDividaPaga);
         Operador operadorSession = (Operador) session.getAttribute("usuario");
         Long totalCliente = clienteService.retornaTotalDeClienteId(operadorSession.getId());
-        mv.addObject("totalClinte", totalCliente); 
+        mv.addObject("totalClinte", totalCliente);
         // Verifica se o campo de busca está vazio ou não foi informado
         // search == null -> significa que não foi enviado nenhum valor
         // search.isBlank() -> verifica se está vazio ou só com espaços (" ")
@@ -164,7 +162,6 @@ public class OperadorController {
             mv.addObject("mensagem", "Digite um nome para pesquisar.");
             return mv;
         }
-
 
         var todosClientes = clienteService.retornarClienteNome(search);
         for (Cliente cliente : todosClientes) {

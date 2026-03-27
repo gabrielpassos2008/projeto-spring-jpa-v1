@@ -23,6 +23,5 @@ public class Operador {
     private String telefone;
     private String email;
     private String senha;
-    
-    
+
 }

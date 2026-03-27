@@ -2,7 +2,6 @@ package com.gabriel.projeto_spring_jpa_v1.model;
 
 import java.time.LocalDateTime;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +29,7 @@ public class Divida {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Divida( LocalDateTime dataCompra, int valor,String status){
+    public Divida(LocalDateTime dataCompra, int valor, String status) {
         this.valor = valor;
     }
 }

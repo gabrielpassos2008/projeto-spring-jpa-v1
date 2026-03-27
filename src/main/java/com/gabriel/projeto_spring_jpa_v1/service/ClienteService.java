@@ -8,23 +8,25 @@ import org.springframework.stereotype.Service;
 
 import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
 import com.gabriel.projeto_spring_jpa_v1.repository.ClienteRepository;
+
 @Service
 public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    public Cliente validarLogin(String email,String senha){
+    public Cliente validarLogin(String email, String senha) {
         return repository.findByEmailAndSenha(email, senha).orElse(null);
     }
-    public List<Cliente> retornarClienteNome(String nome){
-        return repository.findByNomeContainingIgnoreCase(nome);
-    } 
 
-    public Optional<Cliente> retornaClientePorId(Long id){
+    public List<Cliente> retornarClienteNome(String nome) {
+        return repository.findByNomeContainingIgnoreCase(nome);
+    }
+
+    public Optional<Cliente> retornaClientePorId(Long id) {
         return repository.findById(id);
     }
 
-    public boolean cadastrarCLiente(Cliente cliente){  
+    public boolean cadastrarCLiente(Cliente cliente) {
         try {
             repository.save(cliente);
             return true;
@@ -33,7 +35,7 @@ public class ClienteService {
         }
     }
 
-    public Long retornaTotalDeClienteId(Long idOPerador){
+    public Long retornaTotalDeClienteId(Long idOPerador) {
         return repository.countByOperadorId(idOPerador);
     }
 }

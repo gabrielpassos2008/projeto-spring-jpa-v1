@@ -65,19 +65,19 @@
                         <p th:text="${mensagem}"></p>
                     </div>
 
-                        <div class="card-cliente" th:each="cliente : ${clientes}">
-                            <div class="info-cliente">
-                                <span class="nome" th:text="${cliente.nome}"></span>
-                                <span class="valor">R$ <span class="valor"
-                                        th:text="${cliente.totalDivida}"></span></span>
-                            </div>
-
-                            <div class="acoes">
-                                <a th:href="@{'/adm/abater-divida/'+${cliente.id}}" class="btn">Abater dívida</a>
-                                <a th:href="@{'/adm/salvar-divida/'+${cliente.id}}" class="btn">Adicionar dívida</a>
-                                <a th:href="@{'/adm/historico-cliente/'+${cliente.id}}" class="btn"><i class="bi bi-clock-history icone-his"></i></a>
-                            </div>
+                    <div class="card-cliente" th:each="cliente : ${clientes}">
+                        <div class="info-cliente">
+                            <span class="nome" th:text="${cliente.nome}"></span>
+                            <span class="valor">R$ <span class="valor" th:text="${cliente.totalDivida}"></span></span>
                         </div>
+
+                        <div class="acoes">
+                            <a th:href="@{'/adm/abater-divida/'+${cliente.id}}" class="btn">Abater dívida</a>
+                            <a th:href="@{'/adm/salvar-divida/'+${cliente.id}}" class="btn">Adicionar dívida</a>
+                            <a th:href="@{'/adm/historico-cliente/'+${cliente.id}}" class="btn"><i
+                                    class="bi bi-clock-history icone-his"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
 

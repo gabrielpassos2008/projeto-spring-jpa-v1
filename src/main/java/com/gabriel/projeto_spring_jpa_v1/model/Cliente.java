@@ -30,7 +30,7 @@ public class Cliente {
 
     @Transient
     private Integer totalDivida;
-    
+
     @ManyToOne
     @JoinColumn(name = "operador_id")
     private Operador operador;

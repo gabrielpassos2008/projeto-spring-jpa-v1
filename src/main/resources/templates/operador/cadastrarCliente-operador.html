@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
+
 <body>
     <div class="container">
         <div class="menu">
-            <a  th:href="@{/adm/pesquisar-usuario}">Cadastrar a divida</a>
-            <a  th:href="@{/adm/cadastrar-cliente}" class="ativo" >Cadastrar cliente</a>
-            <a  th:href="@{/adm/perfil}">Perfil</a>
+            <a th:href="@{/adm/pesquisar-usuario}">Cadastrar a divida</a>
+            <a th:href="@{/adm/cadastrar-cliente}" class="ativo">Cadastrar cliente</a>
+            <a th:href="@{/adm/perfil}">Perfil</a>
         </div>
 
         <div class="formCentralizado">
@@ -29,8 +31,8 @@
                 <label>Telefone:</label>
                 <input type="text" name="telefone">
 
-                <label >Email:</label>
-                <input type="text" name="email" >
+                <label>Email:</label>
+                <input type="text" name="email">
 
                 <label>Senha:</label>
                 <input type="password" name="senha">
@@ -39,6 +41,7 @@
             </form>
 
         </div>
-</div>
+    </div>
 </body>
+
 </html>

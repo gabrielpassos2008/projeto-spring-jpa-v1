@@ -14,11 +14,7 @@ import com.gabriel.projeto_spring_jpa_v1.model.Divida;
 import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
 import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
 
-
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @Controller
 public class ClienteController {
@@ -27,23 +23,22 @@ public class ClienteController {
 
     @Autowired
     private DividaService dividaService;
-    
 
     @GetMapping("/login")
     public String getLogin() {
         return "cliente/login-cliente";
     }
-    
+
     @PostMapping("/login")
     public String postLogin(Cliente cliente, HttpSession session) {
-        Cliente clienteBanco = clienteService.validarLogin(cliente.getEmail(),cliente.getSenha());
-        if(clienteBanco != null) {
+        Cliente clienteBanco = clienteService.validarLogin(cliente.getEmail(), cliente.getSenha());
+        if (clienteBanco != null) {
             session.setAttribute("cliente", clienteBanco);
             return "redirect:/";
         } else {
             return "cliente/login-cliente";
         }
-        
+
     }
 
     @GetMapping("/")
@@ -61,7 +56,7 @@ public class ClienteController {
         mv.addObject("totalPago", totalPago);
         return mv;
     }
-    
+
     @GetMapping("/historico")
     public ModelAndView getHistorico(HttpSession session) {
         if (session.getAttribute("cliente") == null) {
@@ -101,7 +96,7 @@ public class ClienteController {
         mv.addObject("cliente", cliente);
         return mv;
     }
-    
+
     @PostMapping("/perfil/editar")
     public String postEditarPerfil(HttpSession session, Cliente clienteForm) {
         if (session.getAttribute("cliente") == null) {
@@ -117,12 +112,11 @@ public class ClienteController {
         clienteService.cadastrarCLiente(cliente);
         return "redirect:/";
     }
-    
 
     @GetMapping("/sair")
     public String getSair(HttpSession session) {
         session.invalidate();
         return "redirect:/login";
     }
-    
+
 }
