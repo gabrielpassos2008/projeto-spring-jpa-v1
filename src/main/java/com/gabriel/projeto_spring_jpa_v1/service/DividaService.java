@@ -76,7 +76,11 @@ public class DividaService {
 
     // Retorna o total de dívidas de todos os clientes
     public Integer retornaTotalDivida() {
-        return dividaRepository.somarTotalDivida();
+        Integer total = dividaRepository.somarTotalDivida();
+        if (total == null) {
+            total = 0;
+        }
+        return total;
     }
 
     // Retorna o total pendente (ainda não pago) de um cliente
@@ -101,6 +105,9 @@ public class DividaService {
     // Retorna o total pago de todos os clientes
     public Integer retornaTotalPago() {
         Integer total = dividaRepository.somarTotalPago();
+        if (total == null) {
+            total = 0;
+        }
         total = Math.abs(total);
         return total;
     }
