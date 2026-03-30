@@ -38,14 +38,16 @@ public class OperadorController {
     }
 
     @PostMapping("/adm")
-    public String postLoginAdm(Operador operador, HttpSession session) {
+    public ModelAndView postLoginAdm(Operador operador, HttpSession session) {
         Operador operadorBanco = operadorService.validarLogin(operador.getEmail(), operador.getSenha());
 
         if (operadorBanco != null) {
             session.setAttribute("usuario", operadorBanco);
-            return "redirect:/adm/pesquisar-usuario";
+            return new ModelAndView("redirect:/adm/pesquisar-usuario");
         } else {
-            return "operador/login-operador";
+            ModelAndView mv = new ModelAndView("operador/login-operador");
+            mv.addObject("mensagemErro", "Email ou senha inválidos!");
+            return mv;
         }
     }
 

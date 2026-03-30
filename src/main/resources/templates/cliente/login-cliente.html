@@ -21,6 +21,10 @@
             <label>Senha:</label>
             <input type="text" name="senha">
 
+            <div class="mensagem erro" th:if="${mensagemErro}">
+                <p th:text="${mensagemErro}"></p>
+            </div>
+
             <button class="button" type="submit">Logar</button>
 
         </form>

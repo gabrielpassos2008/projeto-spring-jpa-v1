@@ -30,13 +30,15 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public String postLogin(Cliente cliente, HttpSession session) {
+    public ModelAndView postLogin(Cliente cliente, HttpSession session) {
         Cliente clienteBanco = clienteService.validarLogin(cliente.getEmail(), cliente.getSenha());
         if (clienteBanco != null) {
             session.setAttribute("cliente", clienteBanco);
-            return "redirect:/";
+            return new ModelAndView("redirect:/");
         } else {
-            return "cliente/login-cliente";
+            ModelAndView mv = new ModelAndView("cliente/login-cliente");
+            mv.addObject("mensagemErro", "Email ou senha inválidos!");
+            return mv;
         }
 
     }
