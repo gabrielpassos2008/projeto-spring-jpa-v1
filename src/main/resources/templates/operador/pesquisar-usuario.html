@@ -20,6 +20,7 @@
             <a th:href="@{/adm/cadastrar-cliente}">Cadastrar cliente</a>
             <a th:href="@{/adm/perfil}">Perfil</a>
         </div>
+
         <div class="conteudo">
 
             <!-- LADO ESQUERDO -->
@@ -54,37 +55,55 @@
             </div>
 
             <div class="area-pesquisa">
+
+
+
                 <form method="get" action="/adm/pesquisar-usuario">
                     <div class="topo-pesquisa">
                         <input name="search" type="text" placeholder="Pesquisar cliente..." class="input-pesquisa">
                         <button type="submit" class="btn-pesquisar">Pesquisar</button>
                     </div>
                 </form>
+
                 <div class="lista-clientes">
-                    <div th:if="${mensagem}">
-                        <p th:text="${mensagem}"></p>
+
+                    <div  th:if="${mensagemErro}">
+                        <p th:text="${mensagemErro}"></p>
+                    </div>
+                    <div class="mensagem sucesso" th:if="${sucesso}">
+                        <p th:text="${sucesso}"></p>
                     </div>
 
                     <div class="card-cliente" th:each="cliente : ${clientes}">
                         <div class="info-cliente">
                             <span class="nome" th:text="${cliente.nome}"></span>
-                            <span class="valor">R$ <span class="valor" th:text="${cliente.totalDivida}"></span></span>
+                            <span class="valor">R$ 
+                                <span class="valor" th:text="${cliente.totalDivida}"></span>
+                            </span>
                         </div>
 
                         <div class="acoes">
                             <a th:href="@{'/adm/abater-divida/'+${cliente.id}}" class="btn">Abater dívida</a>
                             <a th:href="@{'/adm/salvar-divida/'+${cliente.id}}" class="btn">Adicionar dívida</a>
-                            <a th:href="@{'/adm/historico-cliente/'+${cliente.id}}" class="btn"><i
-                                    class="bi bi-clock-history icone-his"></i></a>
+                            <a th:href="@{'/adm/historico-cliente/'+${cliente.id}}" class="btn">
+                                <i class="bi bi-clock-history icone-his"></i>
+                            </a>
                         </div>
                     </div>
+
                 </div>
             </div>
-
 
         </div>
 
     </div>
+
+    <!-- ✅ SCRIPT REDIRECT 1 SEGUNDO -->
+    <script th:if="${sucesso}">
+        setTimeout(() => {
+            window.location.href = "/adm/pesquisar-usuario";
+        }, 5000);
+    </script>
 
 </body>
 

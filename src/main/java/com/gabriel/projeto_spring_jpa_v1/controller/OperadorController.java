@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
 import com.gabriel.projeto_spring_jpa_v1.model.Divida;
@@ -96,22 +97,32 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/perfil/editar")
-    public String postEditarPerfil(HttpSession session, Operador operadorForm) {
+    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,RedirectAttributes redirectAttributes) {
+
         if (session.getAttribute("usuario") == null) {
-            return "redirect:/adm";
+            return new ModelAndView("redirect:/adm");
         }
+
         Operador operadorSession = (Operador) session.getAttribute("usuario");
         Operador operador = operadorService.operadorPorId(operadorSession.getId()).orElse(null);
+
+        if (operador == null) {
+            return new ModelAndView("redirect:/adm");
+        }
 
         operador.setNome(operadorForm.getNome());
         operador.setEmail(operadorForm.getEmail());
         operador.setTelefone(operadorForm.getTelefone());
         operador.setSenha(operadorForm.getSenha());
-
         operadorService.salvar(operador);
 
-        return "redirect:/adm/pesquisar-usuario";
+        ModelAndView mv = new ModelAndView("redirect:/adm/pesquisar-usuario");
+
+        // ✅ mensagem
+        redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
+        return mv;
     }
+
 
     @GetMapping("/adm/cadastrar-cliente")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
@@ -122,7 +133,7 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/cadastrar-cliente")
-    public String postCadastrarCliente(HttpSession session, Cliente cliente) {
+    public String postCadastrarCliente(HttpSession session, Cliente cliente,RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return "redirect:/adm";
         }
@@ -135,9 +146,9 @@ public class OperadorController {
         cliente.setOperador(operador);
 
         if (clienteService.cadastrarCLiente(cliente)) {
+            redirectAttributes.addFlashAttribute("sucesso", "sucesso ao cadastrar um cliente");
             return "redirect:/adm/pesquisar-usuario";
         }
-        ;
         return "redirect:/adm/cadastrar-cliente";
 
     }
@@ -161,7 +172,7 @@ public class OperadorController {
         // search.isBlank() -> verifica se está vazio ou só com espaços (" ")
         // || -> OU (se qualquer uma das condições for verdadeira, entra no if)
         if (search == null || search.isBlank()) {
-            mv.addObject("mensagem", "Digite um nome para pesquisar.");
+            mv.addObject("mensagemErro", "Digite um nome para pesquisar.");
             return mv;
         }
 
@@ -174,7 +185,7 @@ public class OperadorController {
         // Verifica se a lista "todosClientes" está vazia (sem nenhum cliente dentro)
         // isEmpty() -> retorna true se a lista não tiver elementos
         if (todosClientes.isEmpty()) {
-            mv.addObject("mensagem", "Nenhum cliente encontrado.");
+            mv.addObject("mensagemErro", "Nenhum cliente encontrado.");
         } else {
             mv.addObject("clientes", todosClientes);
         }
