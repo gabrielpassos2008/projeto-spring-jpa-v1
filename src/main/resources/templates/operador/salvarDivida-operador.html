@@ -56,7 +56,9 @@
 
                     <label>Valor:</label>
                     <input type="text" name="valor">
-
+                    <div class="mensagem erro" th:if="${mensagemErro}">
+                        <p th:text="${mensagemErro}"></p>
+                    </div>
                     <button class="button" type="submit">Salvar</button>
 
                 </form>
