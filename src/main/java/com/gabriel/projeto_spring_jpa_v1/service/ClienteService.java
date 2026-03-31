@@ -18,6 +18,10 @@ public class ClienteService {
         return repository.findByEmailAndSenha(email, senha).orElse(null);
     }
 
+    public boolean validarEmail(String email){
+        return repository.findByEmail(email).isEmpty();
+    }
+
     public List<Cliente> retornarClienteNome(String nome) {
         return repository.findByNomeContainingIgnoreCase(nome);
     }

@@ -139,7 +139,7 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/cadastrar-cliente")
-    public ModelAndView postCadastrarCliente(HttpSession session, Cliente cliente,RedirectAttributes redirectAttributes,@Valid Cliente clienteErro,BindingResult result) {
+    public ModelAndView postCadastrarCliente(HttpSession session, @Valid Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
@@ -156,7 +156,10 @@ public class OperadorController {
             mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
             return mv;
         }
-    
+        if (!clienteService.validarEmail(cliente.getEmail())) {
+            mv.addObject("mensagemErro", "Ops! Esse email já foi utilizado. Tente outro.");
+            return mv;
+        }
         cliente.setOperador(operador);
     
         if (clienteService.cadastrarCLiente(cliente)) {
