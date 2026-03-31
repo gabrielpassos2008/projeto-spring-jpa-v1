@@ -72,7 +72,7 @@ src/
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/gabrielpassos2008/projeto-spring-jpa-v1
 ```
 
 2. Acesse a pasta do projeto:
