@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
 import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.var;
 
 @Controller
@@ -97,7 +99,7 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/perfil/editar")
-    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,RedirectAttributes redirectAttributes) {
+    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,RedirectAttributes redirectAttributes, @Valid Operador operadorErroOperado, BindingResult result) {
 
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
@@ -114,15 +116,19 @@ public class OperadorController {
         operador.setEmail(operadorForm.getEmail());
         operador.setTelefone(operadorForm.getTelefone());
         operador.setSenha(operadorForm.getSenha());
-        operadorService.salvar(operador);
 
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("operador/editar-Perfil-operador");
+            mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
+            return mv;
+        }
+        operadorService.salvar(operador);
         ModelAndView mv = new ModelAndView("redirect:/adm/pesquisar-usuario");
 
         // ✅ mensagem
         redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
         return mv;
     }
-
 
     @GetMapping("/adm/cadastrar-cliente")
     public String getCadastrarCliente(HttpSession session, Cliente cliente) {
@@ -133,24 +139,33 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/cadastrar-cliente")
-    public String postCadastrarCliente(HttpSession session, Cliente cliente,RedirectAttributes redirectAttributes) {
+    public ModelAndView postCadastrarCliente(HttpSession session, Cliente cliente,RedirectAttributes redirectAttributes,@Valid Cliente clienteErro,BindingResult result) {
         if (session.getAttribute("usuario") == null) {
-            return "redirect:/adm";
+            return new ModelAndView("redirect:/adm");
         }
         Operador operadorSession = (Operador) session.getAttribute("usuario");
         Operador operador = operadorService.operadorPorId(operadorSession.getId()).orElse(null);
 
         if (operador == null) {
-            return "redirect:/adm";
+            return new ModelAndView("redirect:/adm");
         }
         cliente.setOperador(operador);
+        ModelAndView mv = new ModelAndView("operador/cadastrarCliente-operador");
 
+        if (result.hasErrors()) {
+            mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
+            return mv;
+        }
+    
+        cliente.setOperador(operador);
+    
         if (clienteService.cadastrarCLiente(cliente)) {
             redirectAttributes.addFlashAttribute("sucesso", "sucesso ao cadastrar um cliente");
-            return "redirect:/adm/pesquisar-usuario";
+            return new ModelAndView("redirect:/adm/pesquisar-usuario");
         }
-        return "redirect:/adm/cadastrar-cliente";
 
+        mv.addObject("mensagemErro", "Erro ao cadastrar cliente!");
+        return mv;
     }
 
     @GetMapping("/adm/pesquisar-usuario")
@@ -218,7 +233,7 @@ public class OperadorController {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
-
+        
         boolean sucesso = dividaService.abaterDivida(id, valor);
         if (!sucesso) {
             return new ModelAndView("redirect:/adm/pesquisar-usuario");
