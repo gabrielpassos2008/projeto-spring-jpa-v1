@@ -34,7 +34,10 @@
 
                 <label>Senha:</label>
                 <input type="text" th:value="${operador.senha}" name="senha">
-
+                
+                <div class="mensagem erro" th:if="${mensagemErro}">
+                    <p th:text="${mensagemErro}"></p>
+                </div>
                 <button class="button" type="submit">Salvar</button>
 
             </form>

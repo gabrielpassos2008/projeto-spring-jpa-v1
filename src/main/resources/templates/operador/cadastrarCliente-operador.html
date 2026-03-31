@@ -36,6 +36,10 @@
 
                 <label>Senha:</label>
                 <input type="password" name="senha">
+
+                <div class="mensagem erro" th:if="${mensagemErro}">
+                    <p th:text="${mensagemErro}"></p>
+                </div>
                 <button class="button" type="submit">Cadastrar</button>
 
             </form>
