@@ -229,11 +229,16 @@ public class OperadorController {
 
     @PostMapping("/adm/abater-divida/{id}")
     public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,
-            @RequestParam("valor") Integer valor) {
+            @RequestParam(required = false) Integer valor,RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
-        
+
+        if (valor == null || valor <= 0) {
+            redirectAttributes.addFlashAttribute("mensagemErro", "Informe um valor coerente!");
+            return new ModelAndView("redirect:/adm/abater-divida/" + id);
+        }
+
         boolean sucesso = dividaService.abaterDivida(id, valor);
         if (!sucesso) {
             return new ModelAndView("redirect:/adm/pesquisar-usuario");
@@ -258,11 +263,19 @@ public class OperadorController {
 
     @PostMapping("/adm/salvar-divida/{id}")
     public ModelAndView postSalvarDivida(HttpSession session, @PathVariable("id") Long id,
-            @RequestParam("valor") Integer valor) {
+            @RequestParam(required = false) Integer valor,RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
-        dividaService.salvarDivida(id, valor);
+        
+        if (valor == null || valor <= 0) {
+            redirectAttributes.addFlashAttribute("mensagemErro", "Informe um valor coerente!");
+            return new ModelAndView("redirect:/adm/salvar-divida/" + id);
+        }
+        boolean sucesso =  dividaService.salvarDivida(id, valor);
+        if (!sucesso) {
+            return new ModelAndView("redirect:/adm/pesquisar-usuario");
+        }
         return new ModelAndView("redirect:/adm/pesquisar-usuario");
     }
 
