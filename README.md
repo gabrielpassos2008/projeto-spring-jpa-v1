@@ -1,4 +1,4 @@
-# Sistema de Caderninho Digital
+#  Sistema de Caderninho Digital
 
 Sistema web desenvolvido para auxiliar no controle de dívidas de clientes em estabelecimentos comerciais, substituindo o tradicional "caderninho" físico por uma solução digital simples e eficiente.
 
@@ -31,7 +31,7 @@ Sistema web desenvolvido para auxiliar no controle de dívidas de clientes em es
 
 ##  Banco de Dados
 
-O sistema utiliza o banco de dados **H2**, que é um banco relacional leve e embarcado.
+O sistema utiliza o banco de dados **H2**, um banco relacional leve e embarcado.
 
 * Execução local (sem necessidade de instalação)
 * Ideal para desenvolvimento e testes
@@ -39,18 +39,42 @@ O sistema utiliza o banco de dados **H2**, que é um banco relacional leve e emb
 
 ---
 
+##  Pré-requisitos
+
+Antes de executar o projeto, você precisa ter instalado:
+
+###  Java (JDK)
+
+* Instale o **JDK 17 ou superior**
+* Verifique a instalação:
+
+```bash
+java -version
+```
+
+---
+
+###  VS Code + Extensões
+
+Instale o **Visual Studio Code** e as seguintes extensões:
+
+* **Extension Pack for Java**
+* **Spring Boot Extension Pack**
+
+---
+
 ##  Como o sistema funciona
 
 O sistema permite que o operador:
 
-1. Pesquise um cliente através de uma barra de busca;
-2. Selecione o cliente desejado;
-3. Visualize o valor total da dívida;
+1. Pesquise um cliente através de uma barra de busca
+2. Selecione o cliente desejado
+3. Visualize o valor total da dívida
 4. Escolha entre:
 
    *  Adicionar valor à dívida
    *  Registrar pagamento
-5. O sistema atualiza automaticamente o saldo do cliente.
+5. O sistema atualiza automaticamente o saldo do cliente
 
 ---
 
@@ -68,26 +92,97 @@ src/
 ---
 
 ##  Como executar o projeto
-Clone o repositório:
+
+### 1. Clone o repositório
+
+```bash
 git clone https://github.com/gabrielpassos2008/projeto-spring-jpa-v1
-Acesse a pasta do projeto:
+```
+
+---
+
+### 2. Acesse a pasta do projeto
+
+```bash
 cd projeto-spring-jpa-v1
-Execute a aplicação:
+```
+
+---
+
+### 3. Execute a aplicação
+
+```bash
 ./mvnw spring-boot:run
-Acesse no navegador:
-http://localhost:8080
-🧪 Dados para teste
+```
 
-Ao iniciar o sistema, o banco de dados é automaticamente populado com dados iniciais (caso esteja vazio).
+---
 
-Operador
-Email: op@email.com
-Senha: abcd
-Cliente
-Email: cliente@email.com
-Senha: 1234
+### 4. Acesse o sistema no navegador
 
-Esses dados são criados automaticamente para facilitar os testes do sistema.
+Área do cliente:
+
+```
+http://localhost:8080/
+```
+
+Área do operador:
+
+```
+http://localhost:8080/adm
+```
+
+---
+
+##  Dados para teste
+
+Ao iniciar o sistema, o banco de dados é automaticamente populado (caso esteja vazio).
+
+###  Operador
+
+* Email: **[op@email.com](mailto:op@email.com)**
+* Senha: **abcd**
+
+###  Cliente
+
+* Email: **[cliente@email.com](mailto:cliente@email.com)**
+* Senha: **1234**
+
+---
+
+##  Acesso ao Banco de Dados (H2)
+
+Acesse o console do banco:
+
+```
+http://localhost:8080/h2-console
+```
+
+### Configuração:
+
+* **JDBC URL:**
+
+```
+jdbc:h2:file:./data/bancoJPA
+```
+
+* **User:**
+
+```
+sa
+```
+
+* **Password:**
+  (deixe em branco)
+
+---
+
+##  Observações importantes
+
+* O banco de dados é criado automaticamente na pasta do projeto (`/data`)
+* Caso o banco esteja vazio, os dados iniciais serão inseridos automaticamente
+* Não é necessário instalar nenhum banco externo
+
+---
 
 ##  Melhorias futuras
 
@@ -98,7 +193,7 @@ Esses dados são criados automaticamente para facilitar os testes do sistema.
 
 ---
 
-## 👨‍💻 Autor
+##  Autor
 
 Gabriel
 
@@ -107,3 +202,4 @@ Gabriel
 ## 📄 Licença
 
 Este projeto é de uso acadêmico.
+
