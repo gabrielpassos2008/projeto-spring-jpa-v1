@@ -23,7 +23,7 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Nome é obrigatório")
+
     private String nome;
 
     @NotBlank(message = "Apelido é obrigatório")
