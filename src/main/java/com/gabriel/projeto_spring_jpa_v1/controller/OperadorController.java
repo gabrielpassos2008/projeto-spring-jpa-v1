@@ -99,7 +99,7 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/perfil/editar")
-    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,RedirectAttributes redirectAttributes, @Valid Operador operadorErroOperado, BindingResult result) {
+    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,RedirectAttributes redirectAttributes, @Valid Operador operadorErro, BindingResult result) {
 
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");

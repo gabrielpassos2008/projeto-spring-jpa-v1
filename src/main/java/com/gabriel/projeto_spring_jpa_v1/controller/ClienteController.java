@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
 import com.gabriel.projeto_spring_jpa_v1.model.Divida;
@@ -15,6 +17,7 @@ import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
 import com.gabriel.projeto_spring_jpa_v1.service.DividaService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class ClienteController {
@@ -100,19 +103,27 @@ public class ClienteController {
     }
 
     @PostMapping("/perfil/editar")
-    public String postEditarPerfil(HttpSession session, Cliente clienteForm) {
+    public ModelAndView postEditarPerfil(HttpSession session, @Valid Cliente clienteForm, BindingResult result, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("cliente") == null) {
-            return "redirect:/login";
+            return new ModelAndView("redirect:/login");
+        }
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("cliente/editar-Perfil-cliente");
+            mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
+            mv.addObject("cliente", clienteForm);
+            return mv;
         }
         Cliente clienteSession = (Cliente) session.getAttribute("cliente");
         Cliente cliente = clienteService.retornaClientePorId(clienteSession.getId()).orElse(null);
-        cliente.setApelido(clienteForm.getNome());
+        cliente.setApelido(clienteForm.getApelido());
         cliente.setEmail(clienteForm.getEmail());
         cliente.setTelefone(clienteForm.getTelefone());
         cliente.setSenha(clienteForm.getSenha());
 
         clienteService.cadastrarCLiente(cliente);
-        return "redirect:/";
+        ModelAndView mv = new ModelAndView("redirect:/");
+        redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
+        return mv;
     }
 
     @GetMapping("/sair")

@@ -21,20 +21,23 @@
 
             <h2 class="tituloForm">Perfil</h2>
 
-            <form method="post" th:action="@{/perfil/editar}">
+            <form method="post" th:action="@{/perfil/editar}" th:object="${cliente}">
 
                 <label>Nome:</label>
-                <input type="text" th:value="${cliente.apelido}" name="nome">
-
+                <input type="text" th:field="*{apelido}">
+            
                 <label>Telefone:</label>
-                <input type="text" th:value="${cliente.telefone}" name="telefone">
-
+                <input type="text" th:field="*{telefone}">
+            
                 <label>Email:</label>
-                <input type="text" th:value="${cliente.email}" name="email">
-
+                <input type="text" th:field="*{email}">
+            
                 <label>Senha:</label>
-                <input type="text" th:value="${cliente.senha}" name="senha">
+                <input type="text" th:field="*{senha}">
 
+                <div class="mensagem erro" th:if="${mensagemErro}">
+                    <p th:text="${mensagemErro}"></p>
+                </div>
                 <button class="button" type="submit">Salvar</button>
 
             </form>

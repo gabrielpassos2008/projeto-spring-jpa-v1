@@ -24,6 +24,7 @@
                 Veja como estão suas finanças hoje
             </p>
         </div>
+
         <div class="resumo formCentralizado">
 
             <h2 class="tituloForm">Resumo divida</h2>
@@ -43,7 +44,9 @@
                     <h3 th:text="${ 'R$ '+totalPago}">R$ 100</h3>
                 </div>
             </div>
-
+            <div class="mensagem sucesso" th:if="${sucesso}">
+                <p th:text="${sucesso}"></p>
+            </div>
         </div>
 
     </div>
