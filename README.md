@@ -68,32 +68,26 @@ src/
 ---
 
 ##  Como executar o projeto
-
-1. Clone o repositório:
-
-```bash
+Clone o repositório:
 git clone https://github.com/gabrielpassos2008/projeto-spring-jpa-v1
-```
-
-2. Acesse a pasta do projeto:
-
-```bash
-cd seu-repo
-```
-
-3. Execute a aplicação:
-
-```bash
+Acesse a pasta do projeto:
+cd projeto-spring-jpa-v1
+Execute a aplicação:
 ./mvnw spring-boot:run
-```
-
-4. Acesse no navegador:
-
-```
+Acesse no navegador:
 http://localhost:8080
-```
+🧪 Dados para teste
 
----
+Ao iniciar o sistema, o banco de dados é automaticamente populado com dados iniciais (caso esteja vazio).
+
+Operador
+Email: op@email.com
+Senha: abcd
+Cliente
+Email: cliente@email.com
+Senha: 1234
+
+Esses dados são criados automaticamente para facilitar os testes do sistema.
 
 ##  Melhorias futuras
 
