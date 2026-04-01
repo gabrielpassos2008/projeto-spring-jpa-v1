@@ -47,7 +47,9 @@ Antes de executar o projeto, você precisa ter instalado:
 
 * Instale o **JDK 17 ou superior**
 * Verifique a instalação:
-
+* 
+- Download:
+  - Oracle: https://www.oracle.com/java/technologies/downloads/ 
 ```bash
 java -version
 ```
