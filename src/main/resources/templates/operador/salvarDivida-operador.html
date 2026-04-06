@@ -55,7 +55,7 @@
                 <form method="post" th:action="@{'/adm/salvar-divida/'+${cliente.id}}">
 
                     <label>Valor:</label>
-                    <input type="text" name="valor">
+                    <input type="number" name="valor">
                     <div class="mensagem erro" th:if="${mensagemErro}">
                         <p th:text="${mensagemErro}"></p>
                     </div>
