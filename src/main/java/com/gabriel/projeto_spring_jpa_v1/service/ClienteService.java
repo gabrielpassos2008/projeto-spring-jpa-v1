@@ -1,5 +1,6 @@
 package com.gabriel.projeto_spring_jpa_v1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,13 +14,18 @@ import com.gabriel.projeto_spring_jpa_v1.repository.ClienteRepository;
 public class ClienteService {
     @Autowired
     private ClienteRepository repository;
+    List<String> erros = new ArrayList<>();
 
     public Cliente validarLogin(String email, String senha) {
         return repository.findByEmailAndSenha(email, senha).orElse(null);
     }
 
-    public boolean validarEmail(String email){
-        return repository.findByEmail(email).isEmpty();
+    public boolean validarEmailDisponivel(String email) {
+        if (repository.findByEmail(email).isEmpty()) {
+            return true;
+        }
+        erros.add("Ops! Esse email já foi utilizado. Tente outro.");
+        return false;
     }
 
     public List<Cliente> retornarClienteNome(String nome) {
@@ -30,13 +36,55 @@ public class ClienteService {
         return repository.findById(id);
     }
 
-    public boolean cadastrarCLiente(Cliente cliente) {
-        try {
+    public List<String> cadastrarCLiente(Cliente cliente) {
+        erros.clear();
+        if (validaDadosClient(cliente)) {
             repository.save(cliente);
-            return true;
-        } catch (Exception e) {
-            return false;
+            return null;
+        } else {
+            return erros;
         }
+    }
+
+    public boolean validaDadosClient(Cliente cliente) {
+        if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
+                && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())
+                && validarEmailDisponivel(cliente.getEmail())) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validarCampoNome(String nome) {
+        if (nome.length() <= 70 && nome.length() >= 2) {
+            return true;
+        }
+        erros.add("Verificar nome do cliente");
+        return false;
+    }
+
+    public boolean validarCampotelefone(String telefone) {
+        if (telefone.length() <= 15 && telefone.length() >= 10) {
+            return true;
+        }
+        erros.add("Verificar telefone do cliente");
+        return false;
+    }
+
+    public boolean validarCampoEmail(String email) {
+        if (email.length() <= 120 && email.length() >= 5) {
+            return true;
+        }
+        erros.add("Verificar Email do cliente");
+        return false;
+    }
+
+    public boolean validarCampoSenha(String senha) {
+        if (senha.length() <= 64 && senha.length() >= 8) {
+            return true;
+        }
+        erros.add("Verificar senha do cliente");
+        return false;
     }
 
     public Long retornaTotalDeClienteId(Long idOPerador) {
