@@ -42,6 +42,7 @@ body {
 
 .container-boas-vindas {
     text-align: center;
+    
 }
 
 .titulo-boas-vindas {
@@ -49,11 +50,14 @@ body {
     font-weight: 600;
     color: #2c3e50;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
 }
 
 .titulo-boas-vindas span {
     color: #f26a2e;
-    font-weight: 700;
+    font-weight: 700;  
 }
 
 .subtitulo-boas-vindas {
@@ -97,6 +101,8 @@ body {
     border-radius: 8px;
     border: 1px solid #999;
     margin-top: 5px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 
 }
 
@@ -330,6 +336,7 @@ input {
     gap: 15px;
     margin-bottom: 25px;
 
+
 }
 
 /* card do cliente */
@@ -357,11 +364,14 @@ input {
     display: flex;
     gap: 20px;
     align-items: center;
+    min-width: 0;
 
 }
 
 .nome {
     font-size: 18px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .valor {
