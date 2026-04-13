@@ -156,19 +156,16 @@ public class OperadorController {
             mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
             return mv;
         }
-        if (!clienteService.validarEmail(cliente.getEmail())) {
-            mv.addObject("mensagemErro", "Ops! Esse email já foi utilizado. Tente outro.");
-            return mv;
-        }
         cliente.setOperador(operador);
-    
-        if (clienteService.cadastrarCLiente(cliente)) {
+
+        List<String> erros = clienteService.cadastrarCLiente(cliente);
+        if (erros == null) {
             redirectAttributes.addFlashAttribute("sucesso", "sucesso ao cadastrar um cliente");
             return new ModelAndView("redirect:/adm/pesquisar-usuario");
+        } else{
+            mv.addObject("mensagemErro", erros);
+            return mv;
         }
-
-        mv.addObject("mensagemErro", "Erro ao cadastrar cliente!");
-        return mv;
     }
 
     @GetMapping("/adm/pesquisar-usuario")
