@@ -10,8 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public String handleErroGeral(HttpServletRequest request, Model model) {
-
+    public String handleErroGeral(HttpServletRequest request, Model model,Exception e) {
+        System.out.println("ERRO");
+        e.printStackTrace();
         // Pega a URL que deu erro
         String uri = request.getRequestURI();
 
