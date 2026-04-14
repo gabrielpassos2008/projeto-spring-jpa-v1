@@ -38,15 +38,23 @@ public class ClienteService {
 
     public List<String> cadastrarCLiente(Cliente cliente) {
         erros.clear();
-        if (validaDadosClient(cliente)) {
+        if (validaDadosCliente(cliente)) {
             repository.save(cliente);
             return null;
         } else {
             return erros;
         }
     }
-
-    public boolean validaDadosClient(Cliente cliente) {
+    
+    public List<String> editarCLiente(Cliente cliente){
+        erros.clear();
+        if(validaDadosClienteEditar(cliente)){
+            repository.save(cliente);
+            return null;
+        }
+        return erros;
+    }
+    public boolean validaDadosCliente(Cliente cliente) {
         if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
                 && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())
                 && validarEmailDisponivel(cliente.getEmail())) {
@@ -54,6 +62,15 @@ public class ClienteService {
         }
         return false;
     }
+    public boolean validaDadosClienteEditar(Cliente cliente) {
+        if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
+                && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())) {
+            return true;
+        }
+        return false;
+    }
+
+
 
     public boolean validarCampoNome(String nome) {
         if (nome.length() <= 70 && nome.length() >= 2) {
