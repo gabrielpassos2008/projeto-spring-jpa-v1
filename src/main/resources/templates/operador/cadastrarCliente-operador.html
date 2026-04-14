@@ -23,19 +23,19 @@
             <form method="post" th:action="@{/adm/cadastrar-cliente}">
 
                 <label>Nome:</label>
-                <input type="text" name="nome">
+                <input type="text" name="nome" placeholder="Nome (2–70 caracteres)">
 
                 <label>Apelido:</label>
-                <input type="text" name="apelido">
+                <input type="text" name="apelido" placeholder="Apelido (2–70 caracteres) ">
 
                 <label>Telefone:</label>
-                <input type="text" name="telefone">
+                <input type="text" name="telefone" placeholder="Telefone (10–15 dígitos)">
 
                 <label>Email:</label>
-                <input type="text" name="email">
+                <input type="text" name="email" placeholder="Email (5–120 caracteres)">
 
                 <label>Senha:</label>
-                <input type="password" name="senha">
+                <input type="password" name="senha" placeholder="Senha (8–64 caracteres)">
 
                 <div class="mensagem erro" th:if="${mensagemErro}">
                     <ul>

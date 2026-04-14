@@ -24,19 +24,21 @@
             <form method="post" th:action="@{/perfil/editar}" th:object="${cliente}">
 
                 <label>Nome:</label>
-                <input type="text" th:field="*{apelido}">
+                <input type="text" th:field="*{apelido}" placeholder="Nome (2–70 caracteres)">
             
                 <label>Telefone:</label>
-                <input type="text" th:field="*{telefone}">
+                <input type="text" th:field="*{telefone}" placeholder="Telefone (10–15 dígitos)">
             
                 <label>Email:</label>
-                <input type="text" th:field="*{email}">
+                <input type="text" th:field="*{email}" placeholder="Email (5–120 caracteres)">
             
                 <label>Senha:</label>
-                <input type="text" th:field="*{senha}">
+                <input type="text" th:field="*{senha}" placeholder="Senha (8–64 caracteres)">
 
                 <div class="mensagem erro" th:if="${mensagemErro}">
-                    <p th:text="${mensagemErro}"></p>
+                    <ul>
+                        <li th:each="erro : ${mensagemErro}" th:text="${erro}"></li>
+                    </ul>
                 </div>
                 <button class="button" type="submit">Salvar</button>
 
