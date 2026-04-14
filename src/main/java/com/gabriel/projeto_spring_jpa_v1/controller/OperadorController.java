@@ -99,8 +99,10 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/perfil/editar")
-    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,
-            RedirectAttributes redirectAttributes, @Valid Operador operadorErro, BindingResult result) {
+    public ModelAndView postEditarPerfil(HttpSession session,
+            @Valid Operador operadorForm,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
 
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
@@ -123,7 +125,7 @@ public class OperadorController {
             mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
             return mv;
         }
-        List<String> erros = operadorService.editarOperador(operador); 
+        List<String> erros = operadorService.editarOperador(operador);
         if (erros == null) {
             operadorService.salvar(operador);
             redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");

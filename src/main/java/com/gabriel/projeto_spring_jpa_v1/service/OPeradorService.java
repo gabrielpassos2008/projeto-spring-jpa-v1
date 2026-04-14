@@ -38,11 +38,22 @@ public class OPeradorService {
     }
 
     public boolean validaDadosClienteEditar(Operador operador) {
-        if (validarCampoNome(operador.getNome()) && validarCampoEmail(operador.getEmail())
-                && validarCampoSenha(operador.getSenha()) && validarCampotelefone(operador.getTelefone())) {
-            return true;
+        // if para cada um para salvar cada erro no array.
+        // se fosse somente um if, iria salvar somente o primeiro erro.
+        boolean valido = true;
+        if (!validarCampoNome(operador.getNome())) {
+            valido = false;
         }
-        return false;
+        if (!validarCampoEmail(operador.getEmail())) {
+            valido = false;
+        }
+        if (!validarCampoSenha(operador.getSenha())) {
+            valido = false;
+        }
+        if (!validarCampotelefone(operador.getTelefone())) {
+            valido = false;
+        }
+        return valido;
     }
 
     public boolean validarCampoNome(String nome) {
