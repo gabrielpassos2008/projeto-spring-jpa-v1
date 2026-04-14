@@ -35,19 +35,20 @@
                 <label>Senha:</label>
                 <input type="text" th:field="*{senha}" placeholder="Senha (8–64 caracteres)">
 
-                <div class="mensagem erro" th:if="${mensagemErro}">
-                    <ul>
-                        <li th:each="erro : ${mensagemErro}" th:text="${erro}"></li>
-                    </ul>
-                </div>
                 <button class="button" type="submit">Salvar</button>
-
+                <div class="mensagem erro" th:if="${mensagemErro}">
+                    <p th:each="erro : ${mensagemErro}" th:text="${erro}"></p>
+                </div>
             </form>
 
         </div>
     </div>
 
-
+    <script th:if="${mensagemErro}">
+        setTimeout(() => {
+            window.location.href = "/perfil/editar";
+        }, 10000);
+    </script>
 </body>
 
 </html>
