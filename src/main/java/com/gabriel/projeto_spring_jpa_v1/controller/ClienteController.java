@@ -119,10 +119,14 @@ public class ClienteController {
         cliente.setEmail(clienteForm.getEmail());
         cliente.setTelefone(clienteForm.getTelefone());
         cliente.setSenha(clienteForm.getSenha());
-
-        clienteService.cadastrarCLiente(cliente);
-        ModelAndView mv = new ModelAndView("redirect:/");
-        redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
+        
+        List<String> erros = clienteService.editarCLiente(cliente);
+        if (erros == null) {
+            redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
+            return new ModelAndView("redirect:/");
+        }
+        ModelAndView mv = new ModelAndView("cliente/editar-Perfil-cliente");
+        mv.addObject("mensagemErro", erros);
         return mv;
     }
 
