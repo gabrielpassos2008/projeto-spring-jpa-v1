@@ -56,20 +56,46 @@ public class ClienteService {
     }
 
     public boolean validaDadosCliente(Cliente cliente) {
-        if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
-                && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())
-                && validarEmailDisponivel(cliente.getEmail())) {
-            return true;
+        // if para cada um para salvar cada erro no array.
+        // se fosse somente um if, iria salvar somente o primeiro erro.
+        boolean valido = true;
+
+        if (!validarCampoNome(cliente.getNome())) {
+            valido = false;
         }
-        return false;
+        if (!validarCampoEmail(cliente.getEmail())) {
+            valido = false;
+        }
+        if (!validarCampoSenha(cliente.getSenha())) {
+            valido = false;
+        }
+        if (!validarCampotelefone(cliente.getTelefone())) {
+            valido = false;
+        }
+        if (!validarEmailDisponivel(cliente.getEmail())) {
+            valido = false;
+        }
+        return valido;
     }
 
     public boolean validaDadosClienteEditar(Cliente cliente) {
-        if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
-                && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())) {
-            return true;
+        // if para cada um para salvar cada erro no array.
+        // se fosse somente um if, iria salvar somente o primeiro erro.
+        boolean valido = true;
+
+        if (!validarCampoNome(cliente.getNome())) {
+            valido = false;
         }
-        return false;
+        if (!validarCampoEmail(cliente.getEmail())) {
+            valido = false;
+        }
+        if (!validarCampoSenha(cliente.getSenha())) {
+            valido = false;
+        }
+        if (!validarCampotelefone(cliente.getTelefone())) {
+            valido = false;
+        }
+        return valido;
     }
 
     public boolean validarCampoNome(String nome) {
