@@ -99,7 +99,8 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/perfil/editar")
-    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,RedirectAttributes redirectAttributes, @Valid Operador operadorErro, BindingResult result) {
+    public ModelAndView postEditarPerfil(HttpSession session, Operador operadorForm,
+            RedirectAttributes redirectAttributes, @Valid Operador operadorErro, BindingResult result) {
 
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
@@ -122,11 +123,14 @@ public class OperadorController {
             mv.addObject("mensagemErro", "Todos os campos devem estar preenchidos!");
             return mv;
         }
-        operadorService.salvar(operador);
-        ModelAndView mv = new ModelAndView("redirect:/adm/pesquisar-usuario");
-
-        // ✅ mensagem
-        redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
+        List<String> erros = operadorService.editarOperador(operador); 
+        if (erros == null) {
+            operadorService.salvar(operador);
+            redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!");
+            return new ModelAndView("redirect:/adm/pesquisar-usuario");
+        }
+        ModelAndView mv = new ModelAndView("operador/editar-Perfil-operador");
+        mv.addObject("mensagemErro", erros);
         return mv;
     }
 
@@ -139,7 +143,8 @@ public class OperadorController {
     }
 
     @PostMapping("/adm/cadastrar-cliente")
-    public ModelAndView postCadastrarCliente(HttpSession session, @Valid Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView postCadastrarCliente(HttpSession session, @Valid Cliente cliente, BindingResult result,
+            RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
@@ -162,7 +167,7 @@ public class OperadorController {
         if (erros == null) {
             redirectAttributes.addFlashAttribute("sucesso", "sucesso ao cadastrar um cliente");
             return new ModelAndView("redirect:/adm/pesquisar-usuario");
-        } else{
+        } else {
             mv.addObject("mensagemErro", erros);
             return mv;
         }
@@ -229,7 +234,7 @@ public class OperadorController {
 
     @PostMapping("/adm/abater-divida/{id}")
     public ModelAndView postAbaterDivida(HttpSession session, @PathVariable("id") Long id,
-            @RequestParam(required = false) Integer valor,RedirectAttributes redirectAttributes) {
+            @RequestParam(required = false) Integer valor, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
@@ -263,16 +268,16 @@ public class OperadorController {
 
     @PostMapping("/adm/salvar-divida/{id}")
     public ModelAndView postSalvarDivida(HttpSession session, @PathVariable("id") Long id,
-            @RequestParam(required = false) Integer valor,RedirectAttributes redirectAttributes) {
+            @RequestParam(required = false) Integer valor, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
-        
+
         if (valor == null || valor <= 0) {
             redirectAttributes.addFlashAttribute("mensagemErro", "Informe um valor coerente!");
             return new ModelAndView("redirect:/adm/salvar-divida/" + id);
         }
-        boolean sucesso =  dividaService.salvarDivida(id, valor);
+        boolean sucesso = dividaService.salvarDivida(id, valor);
         if (!sucesso) {
             return new ModelAndView("redirect:/adm/pesquisar-usuario");
         }
