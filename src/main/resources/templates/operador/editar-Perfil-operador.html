@@ -34,11 +34,11 @@
 
                 <label>Senha:</label>
                 <input type="text" th:value="${operador.senha}" name="senha" placeholder="Senha (8–64 caracteres)">
+
+                <button class="button" type="submit">Salvar</button>
                 <div class="mensagem erro" th:if="${mensagemErro}">
                     <p th:each="erro : ${mensagemErro}" th:text="${erro}"></p>
                 </div>
-                <button class="button" type="submit">Salvar</button>
-
             </form>
 
         </div>
