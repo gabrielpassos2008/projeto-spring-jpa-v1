@@ -45,15 +45,16 @@ public class ClienteService {
             return erros;
         }
     }
-    
-    public List<String> editarCLiente(Cliente cliente){
+
+    public List<String> editarCLiente(Cliente cliente) {
         erros.clear();
-        if(validaDadosClienteEditar(cliente)){
+        if (validaDadosClienteEditar(cliente)) {
             repository.save(cliente);
             return null;
         }
         return erros;
     }
+
     public boolean validaDadosCliente(Cliente cliente) {
         if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
                 && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())
@@ -62,6 +63,7 @@ public class ClienteService {
         }
         return false;
     }
+
     public boolean validaDadosClienteEditar(Cliente cliente) {
         if (validarCampoNome(cliente.getNome()) && validarCampoEmail(cliente.getEmail())
                 && validarCampoSenha(cliente.getSenha()) && validarCampotelefone(cliente.getTelefone())) {
@@ -69,8 +71,6 @@ public class ClienteService {
         }
         return false;
     }
-
-
 
     public boolean validarCampoNome(String nome) {
         if (nome.length() <= 70 && nome.length() >= 2) {
