@@ -21,7 +21,7 @@ public class ClienteService {
     }
 
     public boolean validarEmailDisponivel(String email) {
-        if (repository.findByEmail(email).isEmpty()) {
+        if (repository.findByEmail(email).isPresent()) {
             return true;
         }
         erros.add("Ops! Esse email já foi utilizado. Tente outro.");
