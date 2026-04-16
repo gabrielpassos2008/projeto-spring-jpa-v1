@@ -21,7 +21,7 @@ public class ClienteService {
     }
 
     public boolean validarEmailDisponivel(String email) {
-        if (repository.findByEmail(email).isPresent()) {
+        if (!repository.findByEmail(email).isPresent()) {
             return true;
         }
         erros.add("Ops! Esse email já foi utilizado. Tente outro.");
@@ -65,6 +65,9 @@ public class ClienteService {
         if (!validarCampoNome(cliente.getNome())) {
             valido = false;
         }
+        if (!validarCampoApelido(cliente.getApelido())) {
+            valido = false;
+        }
         if (!validarCampoEmail(cliente.getEmail())) {
             valido = false;
         }
@@ -74,7 +77,7 @@ public class ClienteService {
         if (!validarCampotelefone(cliente.getTelefone())) {
             valido = false;
         }
-        if (validarEmailDisponivel(cliente.getEmail())) {
+        if (!validarEmailDisponivel(cliente.getEmail())) {
             valido = false;
         }
         return valido;
@@ -105,6 +108,13 @@ public class ClienteService {
             return true;
         }
         erros.add("Verificar nome do cliente");
+        return false;
+    }
+    public boolean validarCampoApelido(String nome) {
+        if (nome.length() <= 70 && nome.length() >= 2) {
+            return true;
+        }
+        erros.add("Verificar apelido do cliente");
         return false;
     }
 
