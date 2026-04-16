@@ -4,12 +4,12 @@ import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-
+import java.util.List;
 import java.util.Optional;
-
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,52 +18,64 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import com.gabriel.projeto_spring_jpa_v1.repository.ClienteRepository;
 import com.gabriel.projeto_spring_jpa_v1.service.ClienteService;
 
-
-
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTest {
-    
+
     // classe que vai ser mockada, criado um objeto fake
     @Mock
     private ClienteRepository repository;
     // classe que aonde vai ser feito o teste
     @InjectMocks
     private ClienteService clienteService;
-    private Cliente cliente;
-    
+    private Cliente clienteMaria;
+
+    // Objeto de teste com dados fixos para simular um cliente
     @BeforeEach
-    void setUp(){
-        cliente = new Cliente();
-        cliente.setId(1L);
-        cliente.setApelido("M");
-        cliente.setNome("Maria");
-        cliente.setEmail("maria@gmail.com");
-        cliente.setTelefone("5199999");
-        cliente.setSenha("123");
+    void setUp() {
+        clienteMaria = new Cliente();
+        clienteMaria.setId(1L);
+        clienteMaria.setApelido("M");
+        clienteMaria.setNome("Maria");
+        clienteMaria.setEmail("maria@gmail.com");
+        clienteMaria.setTelefone("5199999");
+        clienteMaria.setSenha("123");
     }
 
-    @Test 
-    void validarLogin_quandoCredenciaisCorretasMock(){
-        when(repository.findByEmailAndSenha("maria@gmail.com","123")).thenReturn(Optional.of(cliente));
+    @Test
+    void validarLogin_quandoCredenciaisCorretasMock() {
+        when(repository.findByEmailAndSenha("maria@gmail.com", "123")).thenReturn(Optional.of(clienteMaria));
         Cliente resultado = clienteService.validarLogin("maria@gmail.com", "123");
-        assertEquals(resultado,cliente);
-        
-    }
-    @Test 
-    void validarEmailDisponivel_quandoEmailNaoExistenteMock(){
-        when(repository.findByEmail("qualquer@gmail.com")).thenReturn(Optional.empty()); //retornar um objeto vazio
+        assertEquals(resultado, clienteMaria);
 
+    }
+
+    @Test
+    void validarEmailDisponivel_quandoEmailNaoExistenteMock() {
+        when(repository.findByEmail("qualquer@gmail.com")).thenReturn(Optional.empty()); // retornar um objeto vazio
         boolean resultado = clienteService.validarEmailDisponivel("qualquer@gmail.com");
         assertFalse(resultado);
     }
-    @Test 
-    void validarEmailDisponivel_quandoEmailjaExistenteMock(){
-        when(repository.findByEmail("maria@gmail.com")).thenReturn(Optional.of(cliente)); // retornar um objeto existente
+
+    @Test
+    void validarEmailDisponivel_quandoEmailjaExistenteMock() {
+        when(repository.findByEmail("maria@gmail.com")).thenReturn(Optional.of(clienteMaria)); // retornar um objeto
+                                                                                               // existente
         boolean resultado = clienteService.validarEmailDisponivel("maria@gmail.com");
         assertTrue(resultado);
+    }
+
+    @Test
+    void validarCadastrarCLiente_quandoNaoHouverErrosDeCampo() {
+        clienteMaria.setEmail("123@gmail.com");
+        clienteMaria.setApelido("maria");
+        clienteMaria.setSenha("12345678");
+        clienteMaria.setTelefone("51995451888");
+        when(repository.save(clienteMaria)).thenReturn(null);
+
+        List<String> resultadoExperado = clienteService.cadastrarCLiente(clienteMaria);
+        assertNull(resultadoExperado);
     }
 }
