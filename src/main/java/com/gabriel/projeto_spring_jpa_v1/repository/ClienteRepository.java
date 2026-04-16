@@ -14,6 +14,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     Optional<Cliente> findBySenha(String senha);
 
+    // Containing → busca por parte do nome (não precisa ser igual)
+    // IgnoreCase → ignora maiúsculas e minúsculas
     List<Cliente> findByNomeContainingIgnoreCase(String nome);
 
     Optional<Cliente> findByEmailAndSenha(String email, String senha);

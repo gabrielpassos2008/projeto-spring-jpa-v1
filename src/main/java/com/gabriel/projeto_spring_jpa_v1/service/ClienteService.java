@@ -29,6 +29,8 @@ public class ClienteService {
     }
 
     public List<Cliente> retornarClienteNome(String nome) {
+        // Containing → busca por parte do nome (não precisa ser igual)
+        // IgnoreCase → ignora maiúsculas e minúsculas
         return repository.findByNomeContainingIgnoreCase(nome);
     }
 
@@ -72,7 +74,7 @@ public class ClienteService {
         if (!validarCampotelefone(cliente.getTelefone())) {
             valido = false;
         }
-        if (!validarEmailDisponivel(cliente.getEmail())) {
+        if (validarEmailDisponivel(cliente.getEmail())) {
             valido = false;
         }
         return valido;
