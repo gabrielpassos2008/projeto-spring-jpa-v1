@@ -75,8 +75,9 @@ public class ClienteServiceTest {
         assertNull(resultadoExperado);
     }
 
-        void validarCadastrarCliente_quandoHouverErrosDeCampoMock() {
-            clienteMaria.setEmail(null); // força erro
+    @Test
+    void validarCadastrarCliente_quandoHouverErrosDeCampoMock() {
+            clienteMaria.setEmail(""); // força erro
 
             List<String> resultado = clienteService.cadastrarCLiente(clienteMaria);
 
