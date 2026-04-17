@@ -17,8 +17,12 @@ public class ClienteService {
     List<String> erros = new ArrayList<>();
 
     public Cliente validarLogin(String email, String senha) {
+        // O método orElse() é usado com Optional para definir um valor padrão.
+        // Se o Optional tiver um valor, ele retorna esse valor.
+        // Se estiver vazio (Optional.empty), ele retorna o valor passado no orElse.
+        // Exemplo: optional.orElse("valor padrão") 
         return repository.findByEmailAndSenha(email, senha).orElse(null);
-    }
+    }   
 
     public boolean validarEmailDisponivel(String email) {
         boolean existe = repository.findByEmail(email).isPresent();

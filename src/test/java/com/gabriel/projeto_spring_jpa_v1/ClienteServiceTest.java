@@ -4,6 +4,7 @@ import com.gabriel.projeto_spring_jpa_v1.model.Cliente;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -37,17 +38,17 @@ public class ClienteServiceTest {
     void setUp() {
         clienteMaria = new Cliente();
         clienteMaria.setId(1L);
-        clienteMaria.setApelido("M");
+        clienteMaria.setApelido("Maria");
         clienteMaria.setNome("Maria");
         clienteMaria.setEmail("maria@gmail.com");
-        clienteMaria.setTelefone("5199999");
-        clienteMaria.setSenha("123");
+        clienteMaria.setTelefone("51995451888");
+        clienteMaria.setSenha("12345678");
     }
 
     @Test
     void validarLogin_quandoCredenciaisCorretasMock() {
-        when(repository.findByEmailAndSenha("maria@gmail.com", "123")).thenReturn(Optional.of(clienteMaria));
-        Cliente resultado = clienteService.validarLogin("maria@gmail.com", "123");
+        when(repository.findByEmailAndSenha("maria@gmail.com", "12345678")).thenReturn(Optional.of(clienteMaria));
+        Cliente resultado = clienteService.validarLogin("maria@gmail.com", "12345678");
         assertEquals(resultado, clienteMaria);
 
     }
@@ -67,14 +68,19 @@ public class ClienteServiceTest {
     }
 
     @Test
-    void validarCadastrarCLiente_quandoNaoHouverErrosDeCampo() {
-        clienteMaria.setEmail("123@gmail.com");
-        clienteMaria.setApelido("maria");
-        clienteMaria.setSenha("12345678");
-        clienteMaria.setTelefone("51995451888");
+    void validarCadastrarCLiente_quandoNaoHouverErrosDeCampoMock() {
         when(repository.save(clienteMaria)).thenReturn(null);
 
         List<String> resultadoExperado = clienteService.cadastrarCLiente(clienteMaria);
         assertNull(resultadoExperado);
     }
+
+        void validarCadastrarCliente_quandoHouverErrosDeCampoMock() {
+            clienteMaria.setEmail(null); // força erro
+
+            List<String> resultado = clienteService.cadastrarCLiente(clienteMaria);
+
+            assertNotNull(resultado);
+            assertFalse(resultado.isEmpty());
+        }
 }
