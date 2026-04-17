@@ -21,11 +21,13 @@ public class ClienteService {
     }
 
     public boolean validarEmailDisponivel(String email) {
-        if (!repository.findByEmail(email).isPresent()) {
-            return true;
+        boolean existe = repository.findByEmail(email).isPresent();
+    
+        if (existe) {
+            erros.add("Ops! Esse email já foi utilizado. Tente outro.");
         }
-        erros.add("Ops! Esse email já foi utilizado. Tente outro.");
-        return false;
+    
+        return !existe;
     }
 
     public List<Cliente> retornarClienteNome(String nome) {

@@ -53,18 +53,17 @@ public class ClienteServiceTest {
     }
 
     @Test
-    void validarEmailDisponivel_quandoEmailNaoExistenteMock() {
+    void validarEmailDisponivel_quandoEmailJaExistenteMock() {
         when(repository.findByEmail("qualquer@gmail.com")).thenReturn(Optional.empty()); // retornar um objeto vazio
         boolean resultado = clienteService.validarEmailDisponivel("qualquer@gmail.com");
-        assertFalse(resultado);
+        assertTrue(resultado);
     }
 
     @Test
-    void validarEmailDisponivel_quandoEmailjaExistenteMock() {
-        when(repository.findByEmail("maria@gmail.com")).thenReturn(Optional.of(clienteMaria)); // retornar um objeto
-                                                                                               // existente
+    void validarEmailDisponivel_quandoEmailNaoExistenteMock() {
+        when(repository.findByEmail("maria@gmail.com")).thenReturn(Optional.of(clienteMaria)); // retornar um objeto existente                                                                                                    
         boolean resultado = clienteService.validarEmailDisponivel("maria@gmail.com");
-        assertTrue(resultado);
+        assertFalse(resultado);
     }
 
     @Test
