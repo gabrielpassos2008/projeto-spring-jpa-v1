@@ -25,5 +25,20 @@ class E2eTest {
 		}
 	}
 
+    @Test
+    void vericaLogin() {
+        try (Playwright playwright = Playwright.create()) {
+            Browser browser = playwright.chromium().launch(
+                new BrowserType.LaunchOptions().setHeadless(false)
+            );
+
+            Page page = browser.newPage();
+            page.navigate("http://localhost:8080/login");
+			assertThat(page).hasTitle(Pattern.compile("Document"));
+            page.getByText()
+            page.pause();
+		}
+	}
+
 }
 
