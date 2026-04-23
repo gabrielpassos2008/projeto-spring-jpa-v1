@@ -58,7 +58,7 @@ jobs:
       - name: Instalar dependências e2e (Python) e browser Chromium
         run: |
           python -m pip install --upgrade pip
-          pip install "./testeE2e"
+          pip install pytest playwright
           python -m playwright install --with-deps chromium
 
       - name: E2E Playwright (pytest)
