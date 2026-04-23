@@ -2,6 +2,7 @@ package com.gabriel.projeto_spring_jpa_v1.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class DividaService {
     // Abate um valor da dívida do cliente (cria um registro negativo como
     // pagamento)
     public boolean abaterDivida(Long clienteId, int valor) {
-        var consultaCliente = clienteRepository.findById(clienteId);
+        Optional<Cliente> consultaCliente = clienteRepository.findById(clienteId);
         if (consultaCliente.isEmpty()) {
             return false;
         }
@@ -45,7 +46,7 @@ public class DividaService {
 
     // Salva uma nova dívida para o cliente
     public boolean salvarDivida(Long clienteId, Integer valor) {
-        var consultaCliente = clienteRepository.findById(clienteId);
+        Optional<Cliente> consultaCliente = clienteRepository.findById(clienteId);
         if (consultaCliente.isEmpty()) {
             return false;
         }
