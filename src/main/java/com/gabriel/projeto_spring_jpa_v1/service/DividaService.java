@@ -12,7 +12,6 @@ import com.gabriel.projeto_spring_jpa_v1.model.Divida;
 import com.gabriel.projeto_spring_jpa_v1.repository.ClienteRepository;
 import com.gabriel.projeto_spring_jpa_v1.repository.DividaRepository;
 
-import lombok.var;
 
 @Service
 public class DividaService {

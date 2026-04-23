@@ -1,6 +1,7 @@
 package com.gabriel.projeto_spring_jpa_v1.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,6 @@ import com.gabriel.projeto_spring_jpa_v1.service.OPeradorService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.var;
 
 @Controller
 public class OperadorController {
@@ -198,7 +198,7 @@ public class OperadorController {
             return mv;
         }
 
-        var todosClientes = clienteService.retornarClienteNome(search);
+        List<Cliente> todosClientes = clienteService.retornarClienteNome(search);
         for (Cliente cliente : todosClientes) {
             Integer total = dividaService.retornarTotalDividaId(cliente.getId());
             cliente.setTotalDivida(total);
@@ -225,7 +225,7 @@ public class OperadorController {
         Integer totalPendente = dividaService.retornarTotalDividaId(id);
         mv.addObject("totalPago", totalPago);
         mv.addObject("totalPendente", totalPendente);
-        var clientePorId = clienteService.retornaClientePorId(id);
+        Optional<Cliente> clientePorId = clienteService.retornaClientePorId(id);
         if (!clientePorId.isPresent()) {
             mv.setViewName("operador/pesquisar-usuario");
             return mv;
@@ -258,7 +258,7 @@ public class OperadorController {
         if (session.getAttribute("usuario") == null) {
             return new ModelAndView("redirect:/adm");
         }
-        var clientePorId = clienteService.retornaClientePorId(id);
+        Optional<Cliente> clientePorId = clienteService.retornaClientePorId(id);
         ModelAndView mv = new ModelAndView("operador/salvarDivida-operador");
         Integer totalPago = dividaService.retornaTotalPagoId(id);
         Integer totalPendente = dividaService.retornarTotalDividaId(id);
