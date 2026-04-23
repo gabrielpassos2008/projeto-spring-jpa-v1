@@ -50,7 +50,6 @@ public class ClienteServiceTest {
         when(repository.findByEmailAndSenha("maria@gmail.com", "12345678")).thenReturn(Optional.of(clienteMaria));
         Cliente resultado = clienteService.validarLogin("maria@gmail.com", "12345678");
         assertEquals(resultado, clienteMaria);
-
     }
 
     @Test
