@@ -1,0 +1,6 @@
+cd e2e-python
+python3 -m venv .venv
+source .venv/Scripts/activate
+python -m playwright install chromium
+
+pytest e2e/ -v --headed
