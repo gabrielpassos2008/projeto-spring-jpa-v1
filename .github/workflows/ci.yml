@@ -4,7 +4,7 @@ name: CI
 on:
   push:
     branches: [main, master]
-  pull_request:
+  pull_request: 
     branches: [main, master]
   workflow_dispatch: {}
 
@@ -54,16 +54,15 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: e2e-python/requirements.txt
 
       - name: Instalar dependências e2e (Python) e browser Chromium
         run: |
           python -m pip install --upgrade pip
-          pip install -r e2e-python/requirements.txt
+          pip install "./testeE2e"
           python -m playwright install --with-deps chromium
 
       - name: E2E Playwright (pytest)
-        working-directory: e2e-python
+        working-directory: testeE2e
         run: pytest -v
         env:
           BASE_URL: http://127.0.0.1:8080
