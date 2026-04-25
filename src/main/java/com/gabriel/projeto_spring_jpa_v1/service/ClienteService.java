@@ -116,6 +116,7 @@ public class ClienteService {
         erros.add("Verificar nome do cliente");
         return false;
     }
+    
     public boolean validarCampoApelido(String nome) {
         if (nome.length() <= 70 && nome.length() >= 2) {
             return true;
