@@ -253,7 +253,12 @@ body {
     margin: 5px;
     font-size: 25px;
 }
-
+.nomeForm{
+    word-break: break-word;
+    overflow-wrap: break-word;
+    padding-inline: 10px;
+    display: flex;
+}
 form {
     display: flex;
     flex-direction: column;
